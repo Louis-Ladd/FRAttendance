@@ -36,7 +36,7 @@ def capture_images_with_face_detection():
         print("Error: Could not open webcam.")
         return
 
-    known_faces_folder = r"C:\Users\tyler\OneDrive\Pictures\Faces"
+    known_faces_folder = os.path.abspath(r"./Faces/")
     known_faces = load_known_faces(known_faces_folder)
 
     while True:

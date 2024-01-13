@@ -202,7 +202,7 @@ if __name__ == "__main__":
 
     def start_selected_cameras(camera_indices):
         threads = []
-        base_folder = r"C:\Users\dhirao\Pictures\Faces"
+        base_folder = os.path.abspath(r"./Faces/")
         for index in camera_indices:
             thread = threading.Thread(
                 target=start_camera_feed, args=(index, base_folder)
