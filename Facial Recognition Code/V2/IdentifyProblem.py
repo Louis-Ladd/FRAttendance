@@ -1,76 +1,9 @@
 import cv2
-import face_recognition
 import os
-import numpy as np
 import tkinter as tk
 from tkinter import ttk
 import threading
-
-
-class FaceRecognitionSystem:
-    def __init__(self, pictures_folder):
-        self.pictures_folder = pictures_folder
-        self.known_faces = self.load_known_faces(pictures_folder)
-
-    def load_known_faces(self, pictures_folder):
-        known_faces = {"encodings": [], "names": []}
-        for filename in os.listdir(pictures_folder):
-            if filename.endswith(".jpg") or filename.endswith(".png"):
-                image = face_recognition.load_image_file(
-                    os.path.join(pictures_folder, filename)
-                )
-                face_encodings = face_recognition.face_encodings(image)
-                if face_encodings:
-                    known_faces["encodings"].append(face_encodings[0])
-                    known_faces["names"].append(filename.split(".")[0])
-        return known_faces
-
-    @staticmethod
-    def assess_image_quality(image):
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        return cv2.Laplacian(gray, cv2.CV_64F).var()
-
-    @staticmethod
-    def is_new_face(face_encoding, known_encodings, tolerance=0.6):
-        if not known_encodings:
-            return True
-        distances = face_recognition.face_distance(known_encodings, face_encoding)
-        return np.all(distances >= tolerance)
-
-    def process_frame(self, frame):
-        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        small_frame = cv2.resize(rgb_frame, (0, 0), fx=0.25, fy=0.25)
-        face_locations = face_recognition.face_locations(small_frame)
-        face_encodings = face_recognition.face_encodings(small_frame, face_locations)
-
-        for face_encoding, face_location in zip(face_encodings, face_locations):
-            matches = face_recognition.compare_faces(
-                self.known_faces["encodings"], face_encoding, tolerance=0.6
-            )
-            face_label = "Unknown"
-
-            if True in matches:
-                first_match_index = matches.index(True)
-                face_label = self.known_faces["names"][first_match_index]
-
-            top, right, bottom, left = face_location
-            top *= 4
-            right *= 4
-            bottom *= 4
-            left *= 4
-
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-            cv2.putText(
-                frame,
-                face_label,
-                (left + 6, bottom - 6),
-                cv2.FONT_HERSHEY_DUPLEX,
-                1.0,
-                (255, 255, 255),
-                1,
-            )
-
-        return frame
+import time
 
 
 class CameraFeed:
@@ -78,7 +11,6 @@ class CameraFeed:
         self.camera_index = int(camera_index)
         self.pictures_folder = pictures_folder
         self.cap = cv2.VideoCapture(self.camera_index)
-        self.fr_system = FaceRecognitionSystem(pictures_folder)
 
     def start_feed(self):
         if not self.cap.isOpened():
@@ -91,8 +23,7 @@ class CameraFeed:
                 print(f"Error: Could not read frame from camera {self.camera_index}.")
                 break
 
-            processed_frame = self.fr_system.process_frame(frame)
-            cv2.imshow(f"Camera {self.camera_index}", processed_frame)
+            cv2.imshow(f"Camera {self.camera_index}", frame)
 
             if cv2.waitKey(1) == ord("q"):
                 break
@@ -168,7 +99,9 @@ if __name__ == "__main__":
 
     def start_selected_cameras(camera_indices):
         threads = []
-        pictures_folder = os.path.abspath(r"./Faces/")
+        pictures_folder = os.path.abspath(
+            r"./Faces/"
+        )  # Define the pictures folder path
 
         for index in camera_indices:
             thread = threading.Thread(
