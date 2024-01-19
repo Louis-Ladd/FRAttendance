@@ -48,16 +48,24 @@ class FaceRecognitionSystem:
                 self.known_faces["encodings"], face_encoding, tolerance=0.6
             )
             face_label = "Unknown"
+            new_face_detected = False
 
             if True in matches:
                 first_match_index = matches.index(True)
                 face_label = self.known_faces["names"][first_match_index]
+            else:
+                new_face_detected = True
+                face_label = f"New_Face_{len(self.known_faces['encodings']) + 1}"
+                self.known_faces["encodings"].append(face_encoding)
+                self.known_faces["names"].append(face_label)
 
-            top, right, bottom, left = face_location
-            top *= 4
-            right *= 4
-            bottom *= 4
-            left *= 4
+            top, right, bottom, left = [v * 4 for v in face_location]
+
+            if new_face_detected:
+                new_face_image = frame[top:bottom, left:right]
+                new_image_path = os.path.join(self.pictures_folder, f"{face_label}.jpg")
+                cv2.imwrite(new_image_path, new_face_image)
+                print(f"New face detected and saved as {face_label}.jpg")
 
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
             cv2.putText(
