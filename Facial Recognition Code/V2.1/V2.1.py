@@ -11,6 +11,7 @@ class FaceRecognitionSystem:
     def __init__(self, pictures_folder):
         self.pictures_folder = pictures_folder
         self.known_faces = self.load_known_faces(pictures_folder)
+        self.unknown_faces_count = 0  # Counter for unknown faces
 
     def load_known_faces(self, pictures_folder):
         known_faces = {"encodings": [], "names": []}
@@ -39,7 +40,9 @@ class FaceRecognitionSystem:
 
     def process_frame(self, frame):
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        small_frame = cv2.resize(rgb_frame, (0, 0), fx=0.25, fy=0.25)
+        scale_factor = 0.5  # Adjust scale factor for processing
+        small_frame = cv2.resize(rgb_frame, (0, 0), fx=scale_factor, fy=scale_factor)
+
         face_locations = face_recognition.face_locations(small_frame)
         face_encodings = face_recognition.face_encodings(small_frame, face_locations)
 
@@ -48,25 +51,25 @@ class FaceRecognitionSystem:
                 self.known_faces["encodings"], face_encoding, tolerance=0.6
             )
             face_label = "Unknown"
-            new_face_detected = False
 
-            if True in matches:
+            if any(matches):
                 first_match_index = matches.index(True)
                 face_label = self.known_faces["names"][first_match_index]
             else:
-                new_face_detected = True
-                face_label = f"New_Face_{len(self.known_faces['encodings']) + 1}"
-                self.known_faces["encodings"].append(face_encoding)
-                self.known_faces["names"].append(face_label)
-
-            top, right, bottom, left = [v * 4 for v in face_location]
-
-            if new_face_detected:
+                # Save new unknown face
+                top, right, bottom, left = [
+                    v * int(1 / scale_factor) for v in face_location
+                ]
                 new_face_image = frame[top:bottom, left:right]
-                new_image_path = os.path.join(self.pictures_folder, f"{face_label}.jpg")
-                cv2.imwrite(new_image_path, new_face_image)
-                print(f"New face detected and saved as {face_label}.jpg")
+                self.unknown_faces_count += 1
+                unknown_face_filename = f"Unknown_{self.unknown_faces_count}.jpg"
+                cv2.imwrite(
+                    os.path.join(self.pictures_folder, unknown_face_filename),
+                    new_face_image,
+                )
+                print(f"Unknown face saved as {unknown_face_filename}")
 
+            # Draw rectangle and label
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
             cv2.putText(
                 frame,
