@@ -178,4 +178,4 @@ if __name__ == "__main__":
             thread.join()
 
     camera_selector = CameraSelector(start_selected_cameras)
-    camera_selector.start()
+    camera_selector.start() 
