@@ -6,7 +6,7 @@ import os
 detector = dlib.get_frontal_face_detector()
 
 # Camera index
-camera_index = 1
+camera_index = 0
 
 # Open the camera
 cap = cv2.VideoCapture(camera_index)
