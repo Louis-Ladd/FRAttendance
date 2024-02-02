@@ -31,13 +31,19 @@ class FaceDetector:
             client.close()
             return
 
-        with open(image_path, "rb") as file:
-            image_data = file.read(2048)
-
-            while image_data:
-                client.send(image_data)
+        try:
+            with open(image_path, "rb") as file:
                 image_data = file.read(2048)
 
+                while image_data:
+                    client.send(image_data)
+                    image_data = file.read(2048)
+        except:
+            print("Unknown file error: unable to finish transfer with server")
+            client.close()
+            return
+
+        print(f"successful: successfully sent face to server at {ip}")
         client.close()
 
     def process_frame(self):
@@ -67,8 +73,10 @@ class FaceDetector:
                     cv2.imwrite(face_filename, face_img)
                 except cv2.error as e:
                     print(f"Open CV Error: {e.msg}")
+                print("Captured face: attempting to send to server...")
+                print(f"Saving at {face_filename}")
                 #self.send_image_to_server(face_filename)
-                t = Thread(target=self.send_image_to_server, args=[face_filename, "192.168.50.34"])
+                t = Thread(target=self.send_image_to_server, args=[face_filename, "192.168.5.7"])
                 t.run()
                 self.face_id += 1
 
