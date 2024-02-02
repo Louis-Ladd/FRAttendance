@@ -17,11 +17,11 @@ class FaceDetector:
         self.tracked_faces = []
         self.distance_threshold = 50
 
-    def send_image_to_server(self, image_path):
+    def send_image_to_server(self, image_path, ip : str):
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
         try:
-            client.connect(("10.235.91.100", 1002))
+            client.settimeout(0.2)
+            client.connect((ip, 1002))
         except TimeoutError:
             print("TimeoutError: is the server listening? is the PORT correct? is the IP correct?")
             client.close()
@@ -62,10 +62,13 @@ class FaceDetector:
             if new_face:
                 self.tracked_faces.append((x, y, w, h))
                 face_img = frame[y : y + h, x : x + w]
-                face_filename = os.path.join(self.save_dir, f"face_{self.face_id}.jpg")
-                cv2.imwrite(face_filename, face_img)
-                #self.send_image_to_server(face_filename)  # Uncomment when server is ready
-                t = Thread(target=self.send_image_to_server, args=[face_filename])
+                face_filename = os.path.join(self.save_dir, f"face_{self.face_id}.png")
+                try:
+                    cv2.imwrite(face_filename, face_img)
+                except cv2.error as e:
+                    print(f"Open CV Error: {e.msg}")
+                #self.send_image_to_server(face_filename)
+                t = Thread(target=self.send_image_to_server, args=[face_filename, "192.168.50.34"])
                 t.run()
                 self.face_id += 1
 
