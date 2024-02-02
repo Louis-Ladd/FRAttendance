@@ -4,11 +4,10 @@ import uuid
 import os
 from threading import Thread
 
-face_directory = r"C:\Users\Owner\Desktop\FRAttendance\FRAttedence\Faces"
+face_directory = r"D:\Programming\Python\FRAttedence\Faces"
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(('', 1002))
 server.listen()
-
 
 while True:
     client_socket, client_address = server.accept()
