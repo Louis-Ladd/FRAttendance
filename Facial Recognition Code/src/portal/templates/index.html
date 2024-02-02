@@ -1,4 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
     <link rel="stylesheet" href="static/css/main.css">
+	<script src="https://kit.fontawesome.com/3fd456368c.js" crossorigin="anonymous"></script>
 </head>
-<h1>hello world!</h1>
+<body>
+    <header>
+        <h1>Dashboard</h1>
+		<div class="search-container">
+			<button class="search-button"><i class="fa fa-search"></i></button>
+			<input type="text" class="search-input" placeholder="Search...">
+		</div>
+		<div class="user-info">
+			<img src="static/media/avatar.jpg" alt="User Avatar" class="avatar" width="40" height="40">
+			<span>{{username}}</span>
+		</div>
+    </header>
+    <main>
+        <nav>
+            <ul>
+				<li><i class="fa fa-square active"></i><span><a href="https://google.com">Dashboard</a></span></li>
+				<li><i class="fa fa-server"></i><span><a href="https://google.com">Server</a></span></li>
+				<li><i class="fa fa-layer-group"></i><span><a href="https://google.com">Cameras</a></span></li>
+				<li><i class="fa fa-user-group"></i><span><a href="https://google.com">My Classes</a></span></li>
+				<li><i class="fa fa-bell"></i><span><a href="https://google.com">Notifications</a></span></li>
+			</ul>
+			<ul>
+				<li><i class="fa fa-user"></i><span>My Account</span></li>
+				<li><i class="fa fa-gear"></i><span><a href="https://google.com">Settings</a></span></li>
+			</ul>
+			<ul>
+				<li><i class="fa fa-circle-question"></i><span><a href="https://google.com">Help and Support</a></span></li>
+			</ul>
+        </nav>
+        <div>
+            <h2>Main Content</h2>
+            <p>cool stuff to go here</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 FRAttendance. Copyright lololol.</p>
+    </footer>
+
+</body>
+</html>
+
