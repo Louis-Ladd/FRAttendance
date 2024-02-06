@@ -4,9 +4,13 @@ from flask import render_template
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 def home():
     return render_template("index.html", username=request.remote_addr)
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
 
 @app.route("/dashboard")
 def dashboard():
@@ -25,7 +29,7 @@ def classes():
     return render_template("classes.html")
 
 @app.route("/notifications")
-def notifications   ():
+def notifications():
     return render_template("notifications.html")
 
 
