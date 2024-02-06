@@ -82,9 +82,17 @@ nav {
 }
 
 main {
-    
     display: flex;
     flex: 1;
+}
+
+.main-content {
+    width: 100%;
+}
+
+iframe {
+    height: 100%;
+    width: 100%;
 }
 
 section {

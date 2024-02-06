@@ -24,23 +24,22 @@
     <main>
         <nav>
             <div class="navbar-buttons">
-				<button><i class="navbar-button fa fa-square active"></i><span>Dashboard</span></button>
-				<button><i class="navbar-button fa fa-server inactive"></i><span>Server</span></button>
-				<button><i class="navbar-button fa fa-layer-group inactive"></i><span>Cameras</span></button>
-				<button><i class="navbar-button fa fa-user-group inactive"></i><span>My Classes</span></button>
-				<button><i class="navbar-button fa fa-bell inactive"></i><span>Notifications</span></button>
+				<button	onclick="cameraSwitch('dashboard', '0')" id="0"><i class="navbar-button fa fa-square active"></i><span>Dashboard</span></button>
+				<button	onclick="cameraSwitch('server', '1')" id="1"><i class="navbar-button fa fa-server"></i><span>Server</span></button>
+				<button onclick="cameraSwitch('cameras', '2')" id="2"><i class="navbar-button fa fa-layer-group"></i><span>Cameras</span></button>
+				<button	onclick="cameraSwitch('classes', '3')" id="3"><i class="navbar-button fa fa-user-group"></i><span>My Classes</span></button>
+				<button	onclick="cameraSwitch('notifications', '4')" id="4"><i class="navbar-button fa fa-bell"></i><span>Notifications</span></button>
 			</div>
 			<div class="navbar-buttons">
-				<button><i class="navbar-button fa fa-gear inactive"></i><span><a href="https://google.com">Settings</a></span></button>
-				<button><i class="navbar-button fa fa-user inactive"></i><span>My Account</span></button>
+				<button onclick="cameraSwitch('settings', '5')" id="5"><i class="navbar-button fa fa-gear inactive"></i><span>Settings</span></button>
+				<button onclick="cameraSwitch('account', '6')" id="6"><i class="navbar-button fa fa-user inactive"></i><span>My Account</span></button>
 			</div>
 			<div class="navbar-buttons">
 				<button><i class="fa fa-circle-question"></i><span><a href="https://google.com">Help and Support</a></span></button>
 			</div>
         </nav>
-        <div>
-            <h2>Main Content</h2>
-            <p>cool stuff to go here</p>
+        <div class="main-content">
+			<iframe src="dashboard" frameBorder="0" id="content-iframe"></iframe>
         </div>
     </main>
     <footer>

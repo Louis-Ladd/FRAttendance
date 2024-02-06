@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="static/css/main.css">
+	<script src="https://kit.fontawesome.com/3fd456368c.js" crossorigin="anonymous"></script>
+	<script src="static/js/index.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Dashboard</h1>
+		<div class="search-container">
+			<button class="search-button"><i class="fa fa-search"></i></button>
+			<input type="text" class="search-input" placeholder="Search...">
+		</div>
+		<div class="user-info">
+			<img src="static/media/avatar.jpg" alt="User Avatar" class="avatar" width="40" height="40">
+			<span>{{username}}</span>
+			<i class="logout fa fa-arrow-right-from-bracket"><button>Logout</button></i>
+		</div>
+    </header>
+    <main>
+        <nav>
+            <div class="navbar-buttons">
+				<button	onclick="cameraSwitch('dashboard')"><i class="navbar-button fa fa-square active"></i><span>Dashboard</span></button>
+				<button	onclick="cameraSwitch('server')"><i class="navbar-button fa fa-server inactive"></i><span>Server</span></button>
+				<button onclick="cameraSwitch('cameras')"><i class="navbar-button fa fa-layer-group inactive"></i><span>Cameras</span></button>
+				<button	onclick="cameraSwitch('classes')"><i class="navbar-button fa fa-user-group inactive"></i><span>My Classes</span></button>
+				<button	onclick="cameraSwitch('notifications')"><i class="navbar-button fa fa-bell inactive"></i><span>Notifications</span></button>
+			</div>
+			<div class="navbar-buttons">
+				<button><i class="navbar-button fa fa-gear inactive"></i><span><a href="https://google.com">Settings</a></span></button>
+				<button><i class="navbar-button fa fa-user inactive"></i><span>My Account</span></button>
+			</div>
+			<div class="navbar-buttons">
+				<button><i class="fa fa-circle-question"></i><span><a href="https://google.com">Help and Support</a></span></button>
+			</div>
+        </nav>
+        <div class="main-content">
+			<iframe src="dashboard" frameBorder="0" id="content-iframe" width = "100%"></iframe>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 FRAttendance. Copyright lololol.</p>
+    </footer>
+
+</body>
+</html>
+
