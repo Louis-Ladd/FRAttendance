@@ -84,6 +84,7 @@ nav {
     align-items: left;
     width: 275px;
     min-height: 95vh;
+    white-space: nowrap;
 }
 
 .navbar-buttons {
