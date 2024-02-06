@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class Dashboard</title>
-    <!-- Add your stylesheet link here -->
-    
+    <link rel="stylesheet" href="static/css/dashboard.css" />
+
 </head>
 <body>
     <div class="dashboard-container">
         <!-- Camera Connection Warning -->
-        <div class="camera-warning">
+        <div class="dash-camera-warning">
             <h1>Please connect camera</h1>
             <p>Some or all cameras have lost signal!</p>
             <div class="camera-buttons">
-                <button class="manage">Manage Cameras</button>
-                <button class="ignore">Ignore</button>
+                <button class="filled">Manage Cameras</button>
+                <button class="unfilled">Ignore</button>
+                <!-- Filled = white background, unfilled = just white boarder (ignore)-->
             </div>
         </div>
         

@@ -165,27 +165,3 @@ footer {
     border-radius: 5px;
     cursor: pointer;
 }
-
-/*Dashboard.html   ^-^/ DON"T YOU TOUCH THIS STUPID THI- */
-
-.dash-dashboard-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as needed */
-    grid-template-rows: auto; /* Adjust the number of rows as needed */
-    gap: 1rem; /* Space between grid items */
-}
-
-.dash-camera-warning {
-    grid-column: 1 / -1; /* Spans all columns */
-    /* Additional styling */
-}
-
-.dash-overview-section {
-    grid-column: 1 / 3; /* Spans first two columns */
-    /* Additional styling */
-}
-
-.dash-cybersecurity-section {
-    grid-column: 3 / 4; /* Third column */
-    /* Additional styling */
-}
