@@ -1,51 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="static/css/main.css">
-	<script src="https://kit.fontawesome.com/3fd456368c.js" crossorigin="anonymous"></script>
-	<script src="static/js/index.js"></script>
-</head>
-<body>
+    <link rel="stylesheet" href="static/css/main.css" />
+    <script
+      src="https://kit.fontawesome.com/3fd456368c.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="static/js/index.js"></script>
+  </head>
+  <body>
     <header>
-        <h1>Dashboard</h1>
-		<div class="search-container">
-			<button class="search-button"><i class="fa fa-search"></i></button>
-			<input type="text" class="search-input" placeholder="Search...">
-		</div>
-		<div class="user-info">
-			<img src="static/media/avatar.jpg" alt="User Avatar" class="avatar" width="40" height="40">
-			<span>{{username}}</span>
-			<i class="fa fa-arrow-right-from-bracket logout"><button>Logout</button></i>
-		</div>
+      <h1>Dashboard</h1>
+      <div class="search-container">
+        <button class="search-button"><i class="fa fa-search"></i></button>
+        <input type="text" class="search-input" placeholder="Search..." />
+      </div>
+      <div class="user-info">
+        <img
+          src="static/media/avatar.jpg"
+          alt="User Avatar"
+          class="avatar"
+          width="40"
+          height="40"
+        />
+        <span>{{username}}</span>
+        <i class="fa fa-arrow-right-from-bracket logout"
+          ><button>Logout</button></i
+        >
+      </div>
     </header>
     <main>
-        <nav>
-            <div class="navbar-buttons">
-				<button	onclick="cameraSwitch('dashboard', '0')" id="0"><i class="navbar-button fa fa-square active"></i><span>Dashboard</span></button>
-				<button	onclick="cameraSwitch('server', '1')" id="1"><i class="navbar-button fa fa-server"></i><span>Server</span></button>
-				<button onclick="cameraSwitch('cameras', '2')" id="2"><i class="navbar-button fa fa-layer-group"></i><span>Cameras</span></button>
-				<button	onclick="cameraSwitch('/', '3')" id="3"><i class="navbar-button fa fa-user-group"></i><span>My Classes</span></button>
-				<button	onclick="cameraSwitch('notifications', '4')" id="4"><i class="navbar-button fa fa-bell"></i><span>Notifications</span></button>
-			</div>
-			<div class="navbar-buttons">
-				<button onclick="cameraSwitch('settings', '5')" id="5"><i class="navbar-button fa fa-gear inactive"></i><span>Settings</span></button>
-				<button onclick="cameraSwitch('account', '6')" id="6"><i class="navbar-button fa fa-user inactive"></i><span>My Account</span></button>
-			</div>
-			<div class="navbar-buttons">
-				<button><i class="fa fa-circle-question"></i><span><a href="https://google.com">Help and Support</a></span></button>
-			</div>
-        </nav>
-        <div class="main-content">
-			<iframe src="dashboard" frameBorder="0" scrolling="no" id="content-iframe"></iframe>
+      <nav>
+        <div class="navbar-buttons">
+          <button onclick="cameraSwitch('dashboard', '0')" id="0">
+            <i class="navbar-button fa fa-square active"></i
+            ><span>Dashboard</span>
+          </button>
+          <button onclick="cameraSwitch('server', '1')" id="1">
+            <i class="navbar-button fa fa-server"></i><span>Server</span>
+          </button>
+          <button onclick="cameraSwitch('cameras', '2')" id="2">
+            <i class="navbar-button fa fa-layer-group"></i><span>Cameras</span>
+          </button>
+          <button onclick="cameraSwitch('classes', '3')" id="3">
+            <i class="navbar-button fa fa-user-group"></i
+            ><span>My Classes</span>
+          </button>
+          <button onclick="cameraSwitch('notifications', '4')" id="4">
+            <i class="navbar-button fa fa-bell"></i><span>Notifications</span>
+          </button>
         </div>
+        <div class="navbar-buttons">
+          <button onclick="cameraSwitch('settings', '5')" id="5">
+            <i class="navbar-button fa fa-gear inactive"></i
+            ><span>Settings</span>
+          </button>
+          <button onclick="cameraSwitch('account', '6')" id="6">
+            <i class="navbar-button fa fa-user inactive"></i
+            ><span>My Account</span>
+          </button>
+        </div>
+        <div class="navbar-buttons">
+          <button>
+            <i class="fa fa-circle-question"></i
+            ><span><a href="https://google.com">Help and Support</a></span>
+          </button>
+        </div>
+      </nav>
+      <div class="main-content">
+        <iframe
+          src="dashboard"
+          frameborder="0"
+          scrolling="no"
+          id="content-iframe"
+        ></iframe>
+      </div>
     </main>
     <footer>
-        <p>&copy; 2024 FRAttendance. Copyright lololol.</p>
+      <p>&copy; 2024 FRAttendance. Copyright lololol.</p>
     </footer>
-
-</body>
+  </body>
 </html>
-
