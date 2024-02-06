@@ -2,6 +2,26 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 a {
     color: inherit;
     text-decoration: inherit;
@@ -23,7 +43,21 @@ header {
     padding-left: 20px;
     text-align: left;
     display: grid;
-    grid-template-columns: 1fr 1.75fr 0.65fr;
+    grid-template-columns: 0.75fr 1.75fr 1fr;
+}
+
+.search-container {
+    position: relative;
+    margin: 20px;
+}
+
+.search-input {
+    padding: 10px;
+    padding-left: 35px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 85%;
 }
 
 i.logout {
@@ -118,20 +152,6 @@ footer {
 .avatar {
     border-radius: 50%;
     margin-right: 10px;
-}
-
-.search-container {
-    position: relative;
-    margin: 20px;
-}
-
-.search-input {
-    padding: 10px;
-    padding-left: 35px;
-    width: 250px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
 }
 
 .search-button {
