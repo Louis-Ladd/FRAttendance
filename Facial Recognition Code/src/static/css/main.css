@@ -110,6 +110,7 @@ nav {
 .navbar-buttons button i.active {
     color: #8C52FF;
 }
+
 .navbar-buttons button:hover {
     cursor: pointer;
     transform: translateX(15px);
