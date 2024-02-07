@@ -11,7 +11,7 @@ VERBOSE = False
 hostname = socket.gethostname()
 ip_addr = socket.gethostbyname(hostname)
 server_info = {"IP" : socket.gethostbyname, "hostname" : hostname, "CPU_USAGE" : []}
-server_info["CPU_USAGE"].append(psutil.cpu_percent(4))
+server_info["CPU_USAGE"].append(psutil.cpu_percent(4)*10)
 
 def debug_log(x):
     if VERBOSE:
@@ -26,7 +26,7 @@ class updateThread(Thread):
     def run(self):
         while not self.stopped.wait(1):
             debug_log(f"Fetching CPU Usage...")
-            server_info["CPU_USAGE"].append(psutil.cpu_percent(4))
+            server_info["CPU_USAGE"].append(psutil.cpu_percent(4)*10)
             debug_log(f"CPU Usage updated: {server_info['CPU_USAGE'][-1]}")
 
 thread = updateThread()
