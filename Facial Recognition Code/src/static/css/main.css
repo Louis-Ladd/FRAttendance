@@ -79,7 +79,7 @@ nav {
     padding: 10px;
     padding-left: 23px;
     display: grid;
-    grid-template-rows: 2fr 0.5fr 0.5fr;
+    grid-template-rows: 2fr 1fr 1fr;
     flex-direction: column;
     align-items: left;
     width: 275px;
@@ -90,6 +90,7 @@ nav {
 .navbar-buttons {
     padding-top: 15px;
     display: block;
+    overflow: hidden;
 }
 
 .navbar-buttons button i {
@@ -107,13 +108,17 @@ nav {
     display: block;
 }
 
+.navbar-buttons button i {
+    font-size: large;
+}
+
 .navbar-buttons button i.active {
     color: #8C52FF;
 }
 
 .navbar-buttons button:hover {
     cursor: pointer;
-    transform: translateX(15px);
+    transform: translateX(10px);
     transition: 0.4s;
 }
 

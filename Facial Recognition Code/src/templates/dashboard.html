@@ -5,37 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class Dashboard</title>
     <link rel="stylesheet" href="static/css/dashboard.css" />
-
+    <script src="static/js/index.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Camera Connection Warning -->
-        <div class="dash-camera-warning">
-            <h1>Please connect camera</h1>
-            <p>Some or all cameras have lost signal!</p>
-            <div class="camera-buttons">
-                <button class="filled-button">Manage Cameras</button>
-                <button class="unfilled-button">Ignore</button>
-                <!-- Filled = white background, unfilled = just white boarder (ignore)-->
+        <div class="left-column">
+            <!-- Camera Connection Warning -->
+            <div class="camera-warning section">
+                <h1>Please connect camera</h1>
+                <p>Some or all cameras have lost signal!</p>
+                <div class="camera-buttons">
+                    <button class="filled-button" onclick="pageSwitch('cameras', '2', true)">Manage Cameras</button>
+                    <button class="unfilled-button">Ignore</button>
+                    <!-- Filled = white background, unfilled = just white boarder (ignore)-->
+                </div>
+            </div>
+
+            <!-- Overview Section -->
+            <div class="overview section">
+                <div class="overview-filters">
+                    <button class="on-time filled-button">On Time</button>
+                    <button class="late unfilled-button">Late</button>
+                    <button class="trends unfilled-button">Trends</button>
+                </div>
+                <div class="students-list">
+                    <!-- Students list grid can be styled with CSS Grid as well -->
+                </div>
             </div>
         </div>
-        
-        <!-- Overview Section -->
-        <div class="overview-section">
-            <div class="status-filters">
-                <button class="on-time">On Time</button>
-                <button class="late">Late</button>
-                <button class="trends">Trends</button>
+        <div class="right-column">
+            <!-- Cybersecurity II Section -->
+            <div class="classlist section">
+                <h2>Cybersecurity II</h2>
+                <!-- Student status list can be a grid or flex container -->
             </div>
-            <div class="students-list">
-                <!-- Students list grid can be styled with CSS Grid as well -->
-            </div>
-        </div>
-        
-        <!-- Cybersecurity II Section -->
-        <div class="cybersecurity-section">
-            <h2>Cybersecurity II</h2>
-            <!-- Student status list can be a grid or flex container -->
         </div>
     </div>
 </body>

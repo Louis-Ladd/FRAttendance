@@ -1,10 +1,10 @@
-var navbarButtons = document.querySelectorAll(".navbar-buttons")
+function pageSwitch(page, id, isNested) {
+    var parentDocument = isNested ? window.parent.document : document;
 
-function cameraSwitch(page, id) {
-    document.getElementById("content-iframe").src = page;
-    buttons = document.getElementsByClassName("navbar-button");
+    parentDocument.getElementById("content-iframe").src = page;
+    buttons = parentDocument.getElementsByClassName("navbar-button");
     for (let i = 0; i < buttons.length; i++){
         buttons[i].classList.remove("active")
     }
-    document.getElementById(id).getElementsByTagName("i")[0].classList.add("active")
+    parentDocument.getElementById(id).getElementsByTagName("i")[0].classList.add("active")
 }
