@@ -1,7 +1,25 @@
 <head>
+    <link rel="stylesheet" href="static/css/server.css">
     <script src="static/js/lib/socket.io.js" crossorigin="anonymous"></script>
     <script src="static/js/server.js"></script>
 </head>
-<h1>Server IP: <span id="ip"></span></h1><br>
-<h1>Server CPU Usage: <span id="cpu_usage"></span>%</h1> 
-<h1>Server RAM Usage: <span id="ram_usage"></span>%</h1> 
+<body>
+    <div class="dashboard-container">
+        <div class="left-column">
+            <div class="section">
+                <h1>Server IP: <span id="ip"></span></h1>
+                <img src="static/media/construct.png" width = 50%>
+            </div>
+            <div class="section">
+                <h1>Server CPU Usage: <span id="cpu_usage"></span>%</h1> 
+            </div>
+            <div class="section">
+                <h1>Server RAM Usage: <span id="ram_usage"></span>%</h1> 
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="section">
+            </div>
+        </div>
+    </div>
+</body>
