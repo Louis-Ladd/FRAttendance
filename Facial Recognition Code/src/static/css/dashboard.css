@@ -24,12 +24,12 @@
     border-radius: 10px;
 }
 
-.camera-warning {
+.camera-overview {
     color: white;
 }
 
-.camera-warning .unfilled-button,
-.camera-warning .filled-button {
+.camera-overview .unfilled-button,
+.camera-overview .filled-button {
     margin-left: 0px;
     margin-right: 20px;
 }

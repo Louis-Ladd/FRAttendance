@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask_socketio import SocketIO, emit
 import socket
 import psutil
 import threading
@@ -10,8 +11,13 @@ VERBOSE = False
 
 hostname = socket.gethostname()
 ip_addr = socket.gethostbyname(hostname)
-server_info = {"IP" : socket.gethostbyname, "hostname" : hostname, "CPU_USAGE" : []}
-server_info["CPU_USAGE"].append(psutil.cpu_percent(4)*10)
+server_info = {"ip" : socket.gethostbyname(hostname), "hostname" : hostname, "cpu_usage" : [], "ram_usage" : []}
+server_info["cpu_usage"].append(psutil.cpu_percent(4))
+server_info["ram_usage"].append(psutil.virtual_memory().percent)
+
+app = Flask(__name__)   
+app.config["SECRET_KEY"] = "secret!"  
+socketio = SocketIO(app)
 
 def debug_log(x):
     if VERBOSE:
@@ -24,15 +30,24 @@ class updateThread(Thread):
         self.daemon = True
 
     def run(self):
-        while not self.stopped.wait(1):
+        while not self.stopped.wait(0.25):
             debug_log(f"Fetching CPU Usage...")
-            server_info["CPU_USAGE"].append(psutil.cpu_percent(4)*10)
-            debug_log(f"CPU Usage updated: {server_info['CPU_USAGE'][-1]}")
+            server_info["cpu_usage"].append(psutil.cpu_percent(0))
+            server_info["ram_usage"].append(psutil.virtual_memory().percent)
+            debug_log(f"CPU Usage updated: {server_info['cpu_usage'][-1]}")
 
 thread = updateThread()
 thread.start()
 
-app = Flask(__name__)     
+
+@socketio.on("connect")
+def handle_connect():
+    print("SocketIO Connection: client connected")
+    emit("info_update", server_info)
+
+@socketio.on("refresh")
+def refresh_server_info():
+    emit("info_update", server_info)
 
 @app.route("/")
 def home():
@@ -69,4 +84,4 @@ def notifications():
     return render_template("notifications.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)

@@ -1,2 +1,7 @@
-<h1>Server IP: {{server_info["IP"](server_info["hostname"])}}<br>
-    Server CPU Usage: {{server_info["CPU_USAGE"][-1]}}%</h1>
+<head>
+    <script src="static/js/lib/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="static/js/server.js"></script>
+</head>
+<h1>Server IP: <span id="ip"></span></h1><br>
+<h1>Server CPU Usage: <span id="cpu_usage"></span>%</h1> 
+<h1>Server RAM Usage: <span id="ram_usage"></span>%</h1> 
