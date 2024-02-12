@@ -2,12 +2,12 @@
 
 # -- Project information
 
-project = 'FR Attdendence'
+project = 'FRAttendance'
 copyright = '2024, Louis'
 author = 'Louis'
 
 release = '0.1'
-version = '0.1.0'
+version = '0.0.1'
 
 # -- General configuration
 
