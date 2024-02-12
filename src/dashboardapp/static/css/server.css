@@ -27,6 +27,11 @@
     color: white;
 }
 
+.cpu-usage-graph {
+    background: white;
+    width: 50%;
+}
+
 /* h2 inherits margin from user agent stylesheet,
    we don't want this because it messes up the position of that class list position 
    - louis*/

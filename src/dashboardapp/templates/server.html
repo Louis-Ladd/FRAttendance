@@ -1,7 +1,5 @@
 <head>
     <link rel="stylesheet" href="static/css/server.css">
-    <script src="static/js/lib/socket.io.js" crossorigin="anonymous"></script>
-    <script src="static/js/server.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -12,6 +10,9 @@
             </div>
             <div class="section">
                 <h1>Server CPU Usage: <span id="cpu_usage"></span>%</h1> 
+                <div class="cpu-usage-graph">
+                    <canvas id="cpu_usage_graph"></canvas>
+                </div>
             </div>
             <div class="section">
                 <h1>Server RAM Usage: <span id="ram_usage"></span>%</h1> 
@@ -22,4 +23,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="static/js/lib/socket.io.js" crossorigin="anonymous"></script>
+    <script src="static/js/server.js"></script>
 </body>
