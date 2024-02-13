@@ -1,21 +1,21 @@
 function tabSwitch(id){
-    filters = document.getElementById("filters")
+    const filters = document.getElementById("filters");
 
     for (const child of filters.children){
         if (child.id == id) {
-            child.classList.remove("unfilled-button")
-            child.classList.add("filled-button")
+            child.classList.remove("unfilled-button");
+            child.classList.add("filled-button");
         }
         else {
-            child.classList.remove("filled-button")
-            child.classList.add("unfilled-button")
+            child.classList.remove("filled-button");
+            child.classList.add("unfilled-button");
         }
     }
     
-    overviews = document.getElementById("overviews-parent");
+    const overviews = document.getElementById("overviews-parent");
     for (const child of overviews.children){
-        child.classList.remove("active")
-        child.classList.add("inactive")
+        child.classList.remove("active");
+        child.classList.add("inactive");
     }
 
     overviews.children[id].classList.remove("inactive");

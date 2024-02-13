@@ -51,7 +51,7 @@ var memory_chart = new Chart(document.getElementById("memory_usage_graph"), {
     options
 });
 
-function addData(chart, label, newData) {
+function addData(chart, label, newData){
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(newData);
@@ -63,7 +63,7 @@ socket.on("connect", function() {
     socket.emit("data", {data: "I\'m connected!"});
 });
 
-socket.on("info_update", function(data) {
+socket.on("info_update", function(data){
     const currentDate = new Date();
     var currentTime = currentDate.toLocaleString('en-US', { hour: 'numeric', minute: "numeric", second: "numeric", hour12: false });
     for (var i = 0; i < dynamic_element_ids.length; i++){
@@ -76,7 +76,7 @@ socket.on("info_update", function(data) {
     }
 
     //TODO: Make this code less verbose - Louis
-    if ((Date.now() - lastGraphUpdate) > 500) {
+    if ((Date.now() - lastGraphUpdate) > 500){
         addData(cpu_chart, currentTime, data["cpu_usage"][data["cpu_usage"].length-1]);
         addData(memory_chart, currentTime, data["ram_usage"][data["ram_usage"].length-1]);
         lastGraphUpdate = Date.now();
