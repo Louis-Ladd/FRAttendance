@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Dashboard</title>
+    <link rel="stylesheet" href="static/css/dashboard.css" />
+    <script src="static/js/index.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="left-column">
+            <div class="camera-overview section">
+                <h1>Please connect camera</h1>
+                <p>Some or all cameras have lost signal!</p>
+                <div class="camera-buttons">
+                    <button class="filled-button" onclick="pageSwitch('cameras', '2', true)">Manage Cameras</button>
+                </div>
+            </div>
+            <div class="overview section">
+                <div class="overview-filters">
+                    <button class="on-time filled-button">On Time</button>
+                    <button class="late unfilled-button">Late</button>
+                    <button class="trends unfilled-button">Trends</button>
+                </div>
+                <div class="students-list">
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="classlist section">
+                <h2>>Class Name Here<</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
