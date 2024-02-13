@@ -8,6 +8,7 @@ def handle_connect():
     print("SocketIO Connection: client connected")
     emit("info_update", server_info)
 
+#This event is ment to be looped from the client side
 @socketio.on("refresh")
 def refresh_server_info():
     emit("info_update", server_info)

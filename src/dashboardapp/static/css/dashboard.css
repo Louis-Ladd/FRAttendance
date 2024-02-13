@@ -52,6 +52,17 @@
     margin: 0px;
 }
 
+.overview-section {
+    color: white;
+}
+
+.overview-section.active {
+}
+
+.overview-section.inactive {
+    display: none;
+}
+
 .filled-button{
     font-size: large;
     padding: 20px;

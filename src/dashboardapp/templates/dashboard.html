@@ -6,6 +6,7 @@
     <title>Class Dashboard</title>
     <link rel="stylesheet" href="static/css/dashboard.css" />
     <script src="static/js/index.js"></script>
+    <script src="static/js/dashboard.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -18,12 +19,21 @@
                 </div>
             </div>
             <div class="overview section">
-                <div class="overview-filters">
-                    <button class="on-time filled-button">On Time</button>
-                    <button class="late unfilled-button">Late</button>
-                    <button class="trends unfilled-button">Trends</button>
+                <div class="overview-filters" id="filters">
+                    <button onclick="tabSwitch('0')" class="on-time filled-button" id="0">On Time</button>
+                    <button onclick="tabSwitch('1')" class="late unfilled-button" id="1">Late</button>
+                    <button onclick="tabSwitch('2')" class="trends unfilled-button" id="2">Trends</button>
                 </div>
-                <div class="students-list">
+                <div id="overviews-parent">
+                    <div class="on-time overview-section active">
+                        <p>Hello</p>
+                    </div>
+                    <div class="late overview-section inactive">
+                        <p>This really worked?</p>
+                    </div>
+                    <div class="late overview-section inactive">
+                        <p>y'know?</p>
+                    </div>
                 </div>
             </div>
         </div>
