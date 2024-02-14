@@ -10,10 +10,10 @@ import sqlite3
 #   The students have the columns: first name, last name, UUID (generated at student(row) creation), path to photo(s)
 
 class ClassDatabase:
-    def __init__(self):
-        self.db_name = "test.db"
+    def __init__(self, bruh):
+        self.db_name = "database.db"
 
-    def create_class(self, class_name):
+    def create_class(self, class_name : str):
         try:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
