@@ -13,6 +13,7 @@ function tabSwitch(id){
     }
     
     const overviews = document.getElementById("overviews-parent");
+    
     for (const child of overviews.children){
         child.classList.remove("active");
         child.classList.add("inactive");
