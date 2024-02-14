@@ -1,18 +1,23 @@
-# hewwow :3
 import sqlite3
 
 
-class Database:
-    def create_table(db_name, create_table_sql):
-        """
-        Create a table from the create_table_sql statement.
-        :param db_name: Name of the database.
-        :param create_table_sql: a CREATE TABLE statement.
-        """
+#TODO: 
+#   Add student lookup
+#   Follow object oreintated programming paradigms
+#   Check if .db file exists, then check if table exists within sql.
+#   STRUCTURE Plan: 
+#   Databases hold every class which are tables, 
+#   The students have the columns: first name, last name, UUID (generated at student(row) creation), path to photo(s)
+
+class ClassDatabase:
+    def __init__(self):
+        self.db_name = "test.db"
+
+    def create_class(self, class_name):
         try:
-            conn = sqlite3.connect(db_name)
+            conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
-            cursor.execute(create_table_sql)
+            cursor.execute(f"CREATE TABLE {class_name}(first, last, id, photo_path)")
             conn.commit()
         except sqlite3.Error as e:
             print(e)
@@ -20,7 +25,7 @@ class Database:
             if conn:
                 conn.close()
 
-    def insert_data(db_name, table, data):
+    def insert_data(self, table, data):
         """
         Insert data into a table.
         :param db_name: Name of the database.
@@ -32,7 +37,7 @@ class Database:
         sql = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
 
         try:
-            conn = sqlite3.connect(db_name)
+            conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
             cursor.execute(sql, data)
             conn.commit()
@@ -42,7 +47,7 @@ class Database:
             if conn:
                 conn.close()
 
-    def query_data(db_name, query):
+    def query_data(self, query):
         """
         Query data from the database.
         :param db_name: Name of the database.
@@ -50,7 +55,7 @@ class Database:
         :return: List of tuples containing the query results.
         """
         try:
-            conn = sqlite3.connect(db_name)
+            conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
             cursor.execute(query)
             results = cursor.fetchall()
@@ -62,7 +67,7 @@ class Database:
             if conn:
                 conn.close()
 
-    def add_column(db_name, table_name, new_column, column_type):
+    def add_column(self, table_name, new_column, column_type):
         """
         Add a new column to an existing table.
         :param db_name: Name of the database.
@@ -72,7 +77,7 @@ class Database:
         """
         sql = f"ALTER TABLE {table_name} ADD COLUMN {new_column} {column_type}"
         try:
-            conn = sqlite3.connect(db_name)
+            conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
             cursor.execute(sql)
             conn.commit()
@@ -82,7 +87,7 @@ class Database:
             if conn:
                 conn.close()
 
-    def insert_data_into_column(db_name, table_name, column_name, data, row_id):
+    def insert_data_into_column(self, table_name, column_name, data, row_id):
         """
         Insert data into a specific column for a specific row.
         :param db_name: Name of the database.
@@ -93,7 +98,7 @@ class Database:
         """
         sql = f"UPDATE {table_name} SET {column_name} = ? WHERE id = ?"
         try:
-            conn = sqlite3.connect(db_name)
+            conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
             cursor.execute(sql, (data, row_id))
             conn.commit()
@@ -103,5 +108,6 @@ class Database:
             if conn:
                 conn.close()
 
-    def __init__(self):
-        print("hewwow wowd :3")
+test = ClassDatabase()
+
+print(type(test))
