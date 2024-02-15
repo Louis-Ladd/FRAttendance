@@ -1,4 +1,5 @@
 import sqlite3
+import traceback
 
 
 #TODO: 
@@ -7,53 +8,26 @@ import sqlite3
 #   Check if .db file exists, then check if table exists within sql.
 #   STRUCTURE Plan: 
 #   Databases hold every class which are tables, 
-#   The students have the columns: first name, last name, UUID (generated at student(row) creation), path to photo(s)
+#   The students have the columns: first name, last name, UUID (generated at student(row) creation), path to photo(s), tardies
 
 class ClassDatabase:
-    def __init__(self, bruh):
+    def __init__(self):
         self.db_name = "database.db"
 
     def create_class(self, class_name : str):
         try:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
-            cursor.execute(f"CREATE TABLE {class_name}(first, last, id, photo_path)")
+            cursor.execute(f"CREATE TABLE {class_name}(first, last, id, photo_path, tardies)")
             conn.commit()
         except sqlite3.Error as e:
-            print(e)
+            traceback.print_tb(e.__traceback__)
+            print(f"{e.sqlite_errorname}: {e}")
         finally:
             if conn:
                 conn.close()
 
-    def insert_data(self, table, data):
-        """
-        Insert data into a table.
-        :param db_name: Name of the database.
-        :param table: Table name to insert data into.
-        :param data: Dictionary of column-value pairs to insert.
-        """
-        columns = ", ".join(data.keys())
-        placeholders = ":" + ", :".join(data.keys())
-        sql = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
-
-        try:
-            conn = sqlite3.connect(self.db_name)
-            cursor = conn.cursor()
-            cursor.execute(sql, data)
-            conn.commit()
-        except sqlite3.Error as e:
-            print(e)
-        finally:
-            if conn:
-                conn.close()
-
-    def query_data(self, query):
-        """
-        Query data from the database.
-        :param db_name: Name of the database.
-        :param query: SELECT query.
-        :return: List of tuples containing the query results.
-        """
+    def get_student(self, query):
         try:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
@@ -61,33 +35,38 @@ class ClassDatabase:
             results = cursor.fetchall()
             return results
         except sqlite3.Error as e:
-            print(e)
+            traceback.print_tb(e.__traceback__)
+            print(f"{e.sqlite_errorname}: {e}")
             return []
         finally:
             if conn:
                 conn.close()
 
-    def add_column(self, table_name, new_column, column_type):
+    def get_data_in_column(self, class_name, column_name, student_id=None, first_name=None):
         """
-        Add a new column to an existing table.
-        :param db_name: Name of the database.
-        :param table_name: Name of the table to add the column to.
-        :param new_column: Name of the new column.
-        :param column_type: Data type of the new column.
+        Get data from student
+        :param class_name Name of class being accessed
+        :param column_name Which column to access
+        :param student_id Find student by id
+        :param first_name Find student by first name
         """
-        sql = f"ALTER TABLE {table_name} ADD COLUMN {new_column} {column_type}"
+        if student_id == None and first_name == None:
+            raise ValueError("student_id and first_name cannot both be empty")
         try:
+            sql_cmd = f"SELECT {column_name} FROM {class_name} WHERE id = {student_id}" if student_id != None else f"SELECT {column_name} FROM {class_name} WHERE first = {first_name}"
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
-            cursor.execute(sql)
-            conn.commit()
+            result = cursor.execute(sql_cmd)
+            print(result.fetchone())
+            return result
         except sqlite3.Error as e:
-            print(f"An error occurred: {e}")
+            traceback.print_tb(e.__traceback__)
+            print(f"{e.sqlite_errorname}: {e}")
         finally:
             if conn:
                 conn.close()
 
-    def insert_data_into_column(self, table_name, column_name, data, row_id):
+    def set_data_in_column(self, class_name, column_name, data, student_id="", first_name=""):
         """
         Insert data into a specific column for a specific row.
         :param db_name: Name of the database.
@@ -96,18 +75,20 @@ class ClassDatabase:
         :param data: Data to be inserted.
         :param row_id: The ID of the row to insert the data into.
         """
-        sql = f"UPDATE {table_name} SET {column_name} = ? WHERE id = ?"
+        if student_id == "" and first_name == "":
+            raise ValueError("student_id and first_name cannot both be empty")
         try:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
-            cursor.execute(sql, (data, row_id))
+            cursor.execute(None)
             conn.commit()
         except sqlite3.Error as e:
-            print(f"An error occurred: {e}")
+            traceback.print_tb(e.__traceback__)
+            print(f"{e.sqlite_errorname}: {e}")
         finally:
             if conn:
                 conn.close()
 
 test = ClassDatabase()
 
-print(type(test))
+test.get_data_in_column("bruh", "tardies", "1234")

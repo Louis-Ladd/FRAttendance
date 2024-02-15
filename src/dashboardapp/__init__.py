@@ -4,7 +4,6 @@ from .events import socketio
 from .routes import main
 from .updater import updateThread
 
-
 def create_app():
     app = Flask(__name__)
     app.config["DEBUG"] = True
