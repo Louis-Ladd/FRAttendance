@@ -14,11 +14,18 @@ class ClassDatabase:
     def __init__(self):
         self.db_name = "database.db"
 
+    def sanitise_input(self, input : str) -> str:
+        for i in input:
+            if not (i.isalnum() or i == " "):
+                print("illegal character")
+                return ""
+        return input
+
     def create_class(self, class_name : str):
         try:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
-            cursor.execute(f"CREATE TABLE {class_name}(first, last, id, photo_path, tardies)")
+            cursor.execute(f"CREATE TABLE {self.sanitise_input(class_name)}(first, last, id, photo_path, tardies)")
             conn.commit()
         except sqlite3.Error as e:
             traceback.print_tb(e.__traceback__)
@@ -27,7 +34,7 @@ class ClassDatabase:
             if conn:
                 conn.close()
 
-    def get_student(self, query):
+    def get_student(self, query): #implement first, last, or student id searching
         try:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
@@ -52,6 +59,9 @@ class ClassDatabase:
         """
         if student_id == None and first_name == None:
             raise ValueError("student_id and first_name cannot both be empty")
+        class_name = self.sanitise_input(class_name)
+        column_name = self.sanitise_input(column_name)
+    
         try:
             sql_cmd = f"SELECT {column_name} FROM {class_name} WHERE id = {student_id}" if student_id != None else f"SELECT {column_name} FROM {class_name} WHERE first = {first_name}"
             conn = sqlite3.connect(self.db_name)
@@ -90,5 +100,3 @@ class ClassDatabase:
                 conn.close()
 
 test = ClassDatabase()
-
-test.get_data_in_column("bruh", "tardies", "1234")
