@@ -4,7 +4,6 @@ import traceback
 
 # TODO:
 #   Add student lookup
-#       Get a student
 #       Edit a student
 #
 #
@@ -91,6 +90,53 @@ class ClassDatabase:
             if conn:
                 conn.close()
 
+    def update_student(
+        self, student_id, first_name=None, last_name=None, photo_path=None, tardies=None
+    ):
+        """
+        Update a student's information.
+        :param student_id: ID of the student to update.
+        :param first_name: New first name of the student (optional).
+        :param last_name: New last name of the student (optional).
+        :param photo_path: New photo path of the student (optional).
+        :param tardies: New tardies count of the student (optional).
+        """
+        try:
+            conn = sqlite3.connect(self.db_name)
+            cursor = conn.cursor()
+
+            updates = []
+            params = []
+
+            if first_name is not None:
+                updates.append("first = ?")
+                params.append(first_name)
+            elif last_name is not None:
+                updates.append("last = ?")
+                params.append(last_name)
+            elif photo_path is not None:
+                updates.append("photo_path = ?")
+                params.append(photo_path)
+            elif tardies is not None:
+                updates.append("tardies = ?")
+                params.append(tardies)
+
+            else:
+                raise ValueError("At least one field to update must be provided")
+
+            params.append(student_id)
+            query = (
+                f"UPDATE your_class_table_name SET {', '.join(updates)} WHERE id = ?"
+            )
+            cursor.execute(query, tuple(params))
+            conn.commit()
+        except sqlite3.Error as e:
+            traceback.print_tb(e.__traceback__)
+            print(f"{e.sqlite_errorname}: {e}")
+        finally:
+            if conn:
+                conn.close()
+
     def get_data_in_column(
         self, class_name, column_name, student_id=None, first_name=None
     ):
@@ -156,7 +202,7 @@ class ClassDatabase:
                 ("Alice", "Smith", 1, "/path/to/photo1", 0),
                 ("Bob", "Johnson", 2, "/path/to/photo2", 1),
                 ("Charlie", "Brown", 3, "/path/to/photo3", 2),
-                ("David", "Wilson", 4, "/path/to/photo4", 0),
+                ("David", "Wilson", 4, "/path/to/photo4", 0),                
                 ("Ella", "Martinez", 5, "/path/to/photo5", 1),
                 ("Frank", "Miller", 6, "/path/to/photo6", 3),
                 ("Grace", "Davis", 7, "/path/to/photo7", 0),
