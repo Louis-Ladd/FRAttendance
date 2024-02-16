@@ -3,13 +3,6 @@ import traceback
 
 
 # TODO:
-#   Add student lookup
-#       Edit a student
-#
-#
-#
-#
-#
 #   Follow object oreintated programming paradigms
 #   Check if .db file exists, then check if table exists within sql.
 #   STRUCTURE Plan:
@@ -108,16 +101,16 @@ class ClassDatabase:
             updates = []
             params = []
 
-            if first_name is not None:
+            if first_name != None:
                 updates.append("first = ?")
                 params.append(first_name)
-            elif last_name is not None:
+            elif last_name != None:
                 updates.append("last = ?")
                 params.append(last_name)
-            elif photo_path is not None:
+            elif photo_path != None:
                 updates.append("photo_path = ?")
                 params.append(photo_path)
-            elif tardies is not None:
+            elif tardies != None:
                 updates.append("tardies = ?")
                 params.append(tardies)
 
@@ -225,4 +218,4 @@ class ClassDatabase:
 
 test = ClassDatabase()
 
-print(test.get_data_in_column("bruh", "tardies", student_id=2)[0])
+print(test.get_data_in_column("Test", "tardies", student_id=1115))
