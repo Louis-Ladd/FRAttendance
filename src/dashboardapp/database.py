@@ -138,7 +138,7 @@ class ClassDatabase:
                 conn.close()
 
     def get_data_in_column(
-        self, class_name, column_name, student_id=None, first_name=None
+        self, class_name, column_name, student_id : str = None, first_name : str = None
     ):
         """
         Get data from student
@@ -159,8 +159,7 @@ class ClassDatabase:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
             result = cursor.execute(sql_cmd)
-            print(result.fetchone())
-            return result
+            return result.fetchone()
         except sqlite3.Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
@@ -222,4 +221,8 @@ class ClassDatabase:
                 conn.close()
 
 
+
+
 test = ClassDatabase()
+
+print(test.get_data_in_column("bruh", "tardies", student_id=2)[0])
