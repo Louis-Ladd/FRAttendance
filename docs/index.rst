@@ -18,3 +18,4 @@ Contents
 
    usage
    api
+   database
