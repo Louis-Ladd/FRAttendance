@@ -15,6 +15,10 @@ class ClassDatabase:
         self.db_name = "database.db"
 
     def sanitise_input(self, input : str) -> str:
+        """
+        :param input Sanitise untrusted string for SQL qeuries
+        :returns: empty string if non alpha numeric or contains SQL commands
+        """
         for i in input:
             if not (i.isalnum() or i == " "):
                 print("illegal character")
@@ -25,7 +29,7 @@ class ClassDatabase:
         try:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
-            cursor.execute(f"CREATE TABLE {self.sanitise_input(class_name)}(first, last, id, photo_path, tardies)")
+            cursor.execute(f"CREATE TABLE {class_name}(first, last, id, photo_path, tardies)")
             conn.commit()
         except sqlite3.Error as e:
             traceback.print_tb(e.__traceback__)
@@ -59,8 +63,6 @@ class ClassDatabase:
         """
         if student_id == None and first_name == None:
             raise ValueError("student_id and first_name cannot both be empty")
-        class_name = self.sanitise_input(class_name)
-        column_name = self.sanitise_input(column_name)
     
         try:
             sql_cmd = f"SELECT {column_name} FROM {class_name} WHERE id = {student_id}" if student_id != None else f"SELECT {column_name} FROM {class_name} WHERE first = {first_name}"
