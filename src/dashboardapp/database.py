@@ -41,7 +41,7 @@ class ClassDatabase:
                 conn.close()
 
     # Parameterized Queries go brrr
-    def get_student(self, student_id=None, first_name=None, last_name=None):
+    def get_student(self, class_name, student_id=None, first_name=None, last_name=None):
         """
         Retrieve student information based on ID, first name, or last name.
         :param student_id: Student's ID
@@ -52,20 +52,17 @@ class ClassDatabase:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
 
-            query = "SELECT * FROM {table_name} WHERE"
+            query = f"SELECT * FROM {class_name} WHERE"
             params = []
 
             if student_id != None:
                 query += " id = ?"
-                params.append(student_id)
             elif first_name != None:
                 query += " AND" if params else ""
                 query += " first = ?"
-                params.append(first_name)
             elif last_name != None:
                 query += " AND" if params else ""
                 query += " last = ?"
-                params.append(last_name)
 
             else:
                 raise ValueError("student_id, first_name, last_name cannot be empty")
@@ -83,9 +80,7 @@ class ClassDatabase:
             if conn:
                 conn.close()
 
-    def update_student(
-        self, student_id, first_name=None, last_name=None, photo_path=None, tardies=None
-    ):
+    def update_student(self, student_id, first_name=None, last_name=None, photo_path=None, tardies=None):
         """
         Update a student's information.
         :param student_id: ID of the student to update.
@@ -218,4 +213,4 @@ class ClassDatabase:
 
 test = ClassDatabase()
 
-print(test.get_data_in_column("Test", "tardies", student_id=1115))
+print(test.get_student())
