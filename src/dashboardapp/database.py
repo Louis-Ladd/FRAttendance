@@ -1,4 +1,4 @@
-import sqlite3
+from sqlite3 import connect, Error
 import traceback
 
 
@@ -13,6 +13,11 @@ import traceback
 class ClassDatabase:
     def __init__(self):
         self.db_name = "database.db"
+        self.connection = connect(self.db_name)
+        self.cursor = self.connection.cursor()
+
+    def __del__(self):
+        self.connection.close()
 
     def sanitise_input(self, input: str) -> str:
         """
@@ -27,60 +32,53 @@ class ClassDatabase:
 
     def create_class(self, class_name: str):
         try:
-            conn = sqlite3.connect(self.db_name)
-            cursor = conn.cursor()
-            cursor.execute(
+            self.cursor.execute(
                 f"CREATE TABLE {class_name}(first, last, id, photo_path, tardies)"
             )
-            conn.commit()
-        except sqlite3.Error as e:
+            self.connection.commit()
+        except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
-        finally:
-            if conn:
-                conn.close()
 
     # Parameterized Queries go brrr
-    def get_student(self, class_name, student_id=None, first_name=None, last_name=None):
+    def get_students(self, class_name, student_id=None, first_name=None, last_name=None):
         """
         Retrieve student information based on ID, first name, or last name.
         :param student_id: Student's ID
         :param first_name: Student's first name
         :param last_name: Student's last name
         """
+        
         try:
-            conn = sqlite3.connect(self.db_name)
-            cursor = conn.cursor()
-
-            query = f"SELECT * FROM {class_name} WHERE"
-            params = []
+            query = f"SELECT * FROM {class_name} WHERE "
+            query_by = []
 
             if student_id != None:
-                query += " id = ?"
-            elif first_name != None:
-                query += " AND" if params else ""
-                query += " first = ?"
-            elif last_name != None:
-                query += " AND" if params else ""
-                query += " last = ?"
+                query_by.append(f"id = {student_id}")
 
-            else:
-                raise ValueError("student_id, first_name, last_name cannot be empty")
+            if first_name != None:
+                query_by.append(f"first = '{first_name}'")
 
-            cursor.execute(
-                query.format(table_name="your_class_table_name"), tuple(params)
-            )
-            results = cursor.fetchall()
+            if last_name != None:
+                query_by.append(f"last = '{last_name}'")
+
+            i = 0
+            while i < len(query_by):
+                if i+2 > len(query_by):
+                    break
+                query_by.insert(i+1, " OR ")
+                i += 2
+
+            self.cursor.execute(query + "".join(query_by))
+            results = self.cursor.fetchall()
             return results
-        except sqlite3.Error as e:
+        
+        except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
             return []
-        finally:
-            if conn:
-                conn.close()
 
-    def update_student(self, student_id, first_name=None, last_name=None, photo_path=None, tardies=None):
+    def update_student(self, class_name, student_id, first_name=None, last_name=None, photo_path=None, tardies=None):
         """
         Update a student's information.
         :param student_id: ID of the student to update.
@@ -93,37 +91,35 @@ class ClassDatabase:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
 
-            updated_columns = []
+            updates = []
             params = []
 
             if first_name != None:
-                updated_columns.append("first = ?")
+                updates.append("first = ?")
                 params.append(first_name)
             elif last_name != None:
-                updated_columns.append("last = ?")
+                updates.append("last = ?")
                 params.append(last_name)
             elif photo_path != None:
-                updated_columns.append("photo_path = ?")
+                updates.append("photo_path = ?")
                 params.append(photo_path)
             elif tardies != None:
-                updated_columns.append("tardies = ?")
+                updates.append("tardies = ?")
                 params.append(tardies)
 
             else:
                 raise ValueError("At least one field to update must be provided")
 
-            params.append(student_id)
+            query_by.append(student_id)
             query = (
-                f"UPDATE your_class_table_name SET {', '.join(updated_columns)} WHERE id = ?"
+                f"UPDATE your_class_table_name SET {', '.join(updates)} WHERE id = ?"
             )
-            cursor.execute(query, tuple(params))
-            conn.commit()
-        except sqlite3.Error as e:
+            self.cursor.execute(query, tuple(query_by))
+            self.connection.commit()
+
+        except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
-        finally:
-            if conn:
-                conn.close()
 
     def get_data_in_column(
         self, class_name, column_name, student_id : str = None, first_name : str = None
@@ -135,25 +131,17 @@ class ClassDatabase:
         :param student_id Find student by id
         :param first_name Find student by first name
         """
-        if student_id == None and first_name == None:
-            raise ValueError("student_id and first_name cannot both be empty")
 
         try:
-            sql_cmd = (
-                f"SELECT {column_name} FROM {class_name} WHERE id = {student_id}"
-                if student_id != None
-                else f"SELECT {column_name} FROM {class_name} WHERE first = {first_name}"
-            )
-            conn = sqlite3.connect(self.db_name)
-            cursor = conn.cursor()
-            result = cursor.execute(sql_cmd)
+            sql_cmd = f"SELECT {column_name} FROM {class_name} WHERE"
+            queries = []
+
+            result = self.cursor.execute(sql_cmd)
             return result.fetchone()
-        except sqlite3.Error as e:
+        
+        except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
-        finally:
-            if conn:
-                conn.close()
 
     def set_data_in_column(
         self, class_name, column_name, data, student_id="", first_name=""
@@ -169,22 +157,15 @@ class ClassDatabase:
         if student_id == "" and first_name == "":
             raise ValueError("student_id and first_name cannot both be empty")
         try:
-            conn = sqlite3.connect(self.db_name)
-            cursor = conn.cursor()
-            cursor.execute(None)
-            conn.commit()
-        except sqlite3.Error as e:
+            self.cursor.execute(None)
+            self.connection.commit()
+        except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
-        finally:
-            if conn:
-                conn.close()
 
     def create_example_data(self, class_name: str):
         """Adds test data to the specified class"""
         try:
-            conn = sqlite3.connect(self.db_name)
-            cursor = conn.cursor()
             students = [
                 ("Alice", "Smith", 1, "/path/to/photo1", 0),
                 ("Bob", "Johnson", 2, "/path/to/photo2", 1),
@@ -196,21 +177,15 @@ class ClassDatabase:
                 ("Henry", "Garcia", 8, "/path/to/photo8", 2),
                 ("Isabel", "Lopez", 9, "/path/to/photo9", 1),
                 ("Jack", "Hall", 10, "/path/to/photo10", 0),
+                ("Alice", "Bob", 11, "/path/to/photo1", 0),
             ]
-            cursor.executemany(
+            self.cursor.executemany(
                 f"INSERT INTO {class_name} VALUES (?, ?, ?, ?, ?)", students
             )
-            conn.commit()
-        except sqlite3.Error as e:
+            self.connection.commit()
+        except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
-        finally:
-            if conn:
-                conn.close()
-
-
 
 
 test = ClassDatabase()
-
-print(test.get_student())
