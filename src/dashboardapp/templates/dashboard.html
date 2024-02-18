@@ -11,6 +11,7 @@
 <body>
     <div class="dashboard-container">
         <div class="left-column">
+            <!-- Start of Camera notifier -->
             <div class="camera-overview section">
                 <h1>Please connect camera</h1>
                 <p>Some or all cameras have lost signal!</p>
@@ -18,6 +19,8 @@
                     <button class="filled-button" onclick="pageSwitch('cameras', '2', true)">Manage Cameras</button>
                 </div>
             </div>
+            <!-- End of Camera notifier -->
+            <!-- Start of Quickview Modal-->
             <div class="overview section">
                 <div class="overview-filters" id="filters">
                     <button onclick="tabSwitch('0')" class="on-time filled-button" id="0">On Time</button>
@@ -36,6 +39,7 @@
                     </div>
                 </div>
             </div>
+            <!-- End of Quickview Modal-->
         </div>
 
         <div class="right-column">

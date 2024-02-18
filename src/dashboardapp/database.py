@@ -93,20 +93,20 @@ class ClassDatabase:
             conn = sqlite3.connect(self.db_name)
             cursor = conn.cursor()
 
-            updates = []
+            updated_columns = []
             params = []
 
             if first_name != None:
-                updates.append("first = ?")
+                updated_columns.append("first = ?")
                 params.append(first_name)
             elif last_name != None:
-                updates.append("last = ?")
+                updated_columns.append("last = ?")
                 params.append(last_name)
             elif photo_path != None:
-                updates.append("photo_path = ?")
+                updated_columns.append("photo_path = ?")
                 params.append(photo_path)
             elif tardies != None:
-                updates.append("tardies = ?")
+                updated_columns.append("tardies = ?")
                 params.append(tardies)
 
             else:
@@ -114,7 +114,7 @@ class ClassDatabase:
 
             params.append(student_id)
             query = (
-                f"UPDATE your_class_table_name SET {', '.join(updates)} WHERE id = ?"
+                f"UPDATE your_class_table_name SET {', '.join(updated_columns)} WHERE id = ?"
             )
             cursor.execute(query, tuple(params))
             conn.commit()

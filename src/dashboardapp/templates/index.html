@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/all.css">
     <script src="https://kit.fontawesome.com/3fd456368c.js" crossorigin="anonymous"></script>
     <script src="static/js/index.js"></script>
   </head>
   <body>
+    <!-- Start of Header -->
     <header>
       <h1>Dashboard</h1>
       <div class="search-container">
         <button class="search-button"><i class="fa fa-search"></i></button>
+        <!-- This search bar doesn't know how to search -->
         <input type="text" class="search-input" placeholder="Search..." />
       </div>
       <div class="user-info">
@@ -22,19 +25,20 @@
           class="avatar"
           width="40"
           height="40"
-        />
+        />8
         <span>{{username}}</span>
         <i class="fa fa-arrow-right-from-bracket logout"
           ><button>Logout</button></i
         >
       </div>
     </header>
+    <!-- End of Header -->
     <main>
+      <!-- Start of side navbar -->
       <nav>
         <div class="navbar-buttons">
           <button onclick="pageSwitch('dashboard', '0', false)" id="0">
-            <i class="navbar-button fa fa-square active"></i
-            ><span>Dashboard</span>
+            <i class="navbar-button fa fa-square active"></i><span>Dashboard</span>
           </button>
           <button onclick="pageSwitch('server', '1', false)" id="1">
             <i class="navbar-button fa fa-server"></i><span>Server</span>
@@ -43,8 +47,7 @@
             <i class="navbar-button fa fa-layer-group"></i><span>Cameras</span>
           </button>
           <button onclick="pageSwitch('classes', '3', false)" id="3">
-            <i class="navbar-button fa fa-user-group"></i
-            ><span>My Classes</span>
+            <i class="navbar-button fa fa-user-group"></i><span>My Classes</span>
           </button>
           <button onclick="pageSwitch('notifications', '4', false)" id="4">
             <i class="navbar-button fa fa-bell"></i><span>Notifications</span>
@@ -67,6 +70,8 @@
           </button>
         </div>
       </nav>
+      <!-- End of side navbar -->
+      <!-- Start of Main Content -->
       <div class="main-content">
         <iframe
           src="dashboard"
@@ -74,6 +79,7 @@
           id="content-iframe"
         ></iframe>
       </div>
+      <!-- End of Main Content -->
     </main>
     <footer>
       <p>&copy; 2024 FRAttendance. Copyright lololol.</p>

@@ -8,16 +8,13 @@ main = Blueprint("main", __name__)
 def home():
     return render_template("index.html", username=request.remote_addr)
 
-
 @main.route("/login")
 def login():
     return render_template("login.html")
 
-
 @main.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
-
 
 @main.route("/server")
 def server():
@@ -27,11 +24,9 @@ def server():
 def camears():
     return render_template("cameras.html")
 
-
 @main.route("/classes")
 def classes():
     return render_template("classes.html")
-
 
 @main.route("/notifications")
 def notifications():
