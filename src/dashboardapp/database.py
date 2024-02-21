@@ -1,4 +1,4 @@
-from sqlite3 import connect, Error
+from sqlite3 import connect, Error 
 import traceback
 
 
@@ -50,26 +50,27 @@ class ClassDatabase:
         """
         
         try:
-            query = f"SELECT * FROM {class_name} WHERE "
+
+            search_columns = []
             query_by = []
 
             if student_id != None:
-                query_by.append(f"id = {student_id}")
+                search_columns.append(f"id = ?")
+                query_by.append(student_id)
 
             if first_name != None:
-                query_by.append(f"first = '{first_name}'")
+                search_columns.append(f"first LIKE ?")
+                query_by.append(first_name+'%')
 
             if last_name != None:
-                query_by.append(f"last = '{last_name}'")
+                search_columns.append(f"last LIKE ?")
+                query_by.append(last_name+'%')
 
-            i = 0
-            while i < len(query_by):
-                if i+2 > len(query_by):
-                    break
-                query_by.insert(i+1, " OR ")
-                i += 2
-
-            self.cursor.execute(query + "".join(query_by))
+            query = ( 
+                f"SELECT * FROM {class_name} WHERE {', '.join(search_columns)}"
+            )
+            print(query)
+            self.cursor.execute(query, tuple(query_by))
             results = self.cursor.fetchall()
             return results
         
@@ -88,31 +89,28 @@ class ClassDatabase:
         :param tardies: New tardies count of the student (optional).
         """
         try:
-            conn = sqlite3.connect(self.db_name)
-            cursor = conn.cursor()
-
-            updates = []
-            params = []
+            updated_columns = []
+            query_by = []
 
             if first_name != None:
-                updates.append("first = ?")
-                params.append(first_name)
+                updated_columns.append("first = ?")
+                query_by.append(first_name)
             elif last_name != None:
-                updates.append("last = ?")
-                params.append(last_name)
+                updated_columns.append("last = ?")
+                query_by.append(last_name)
             elif photo_path != None:
-                updates.append("photo_path = ?")
-                params.append(photo_path)
+                updated_columns.append("photo_path = ?")
+                query_by.append(photo_path)
             elif tardies != None:
-                updates.append("tardies = ?")
-                params.append(tardies)
+                updated_columns.append("tardies = ?")
+                query_by.append(tardies)
 
             else:
                 raise ValueError("At least one field to update must be provided")
 
             query_by.append(student_id)
             query = (
-                f"UPDATE your_class_table_name SET {', '.join(updates)} WHERE id = ?"
+                f"UPDATE your_class_table_name SET {', '.join(updated_columns)} WHERE id = ?"
             )
             self.cursor.execute(query, tuple(query_by))
             self.connection.commit()
@@ -189,3 +187,4 @@ class ClassDatabase:
 
 
 test = ClassDatabase()
+
