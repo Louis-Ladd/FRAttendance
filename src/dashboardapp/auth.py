@@ -16,11 +16,11 @@ def signup():
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-    email = request.form.get('email')
+    username = request.form.get('username')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
     if not user or not check_password_hash(user.password, password): 
         flash('Please check your login details and try again.')
@@ -32,17 +32,17 @@ def login_post():
 @auth.route('/signup', methods=['POST'])
 def signup_post():
 
-    email = request.form.get('email')
+    username = request.form.get('username')
     name = request.form.get('name')
     password = request.form.get('password')
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
     if user:
-        flash('Email address already exists')
+        flash('User already exists')
         return redirect(url_for('auth.signup'))
 
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='scrypt', salt_length=16), isAdmin=(name == "admin"))
+    new_user = User(username=username, name=name, password=generate_password_hash(password, method='scrypt', salt_length=16), isAdmin=(username == "admin"))
 
     db.session.add(new_user)
     db.session.commit()
