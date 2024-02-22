@@ -65,7 +65,7 @@ i.logout {
     padding-right: 15px;
 }
 
-i.logout button{
+i.logout a{
     cursor: pointer;
     color: #8C52FF;
     border:none;

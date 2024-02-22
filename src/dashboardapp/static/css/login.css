@@ -24,6 +24,11 @@ body {
     color: #333;
 }
 
+.notification {
+    color: #ff0000;
+    padding: auto;
+}
+
 .login-form {
     display: flex;
     flex-direction: column;
@@ -48,6 +53,8 @@ body {
 
 .form-group button {
     padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     background-color: #8C52FF;
     color: #fff;
     border: none;

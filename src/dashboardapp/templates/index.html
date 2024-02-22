@@ -1,3 +1,4 @@
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,11 +26,11 @@
           class="avatar"
           width="40"
           height="40"
-        />8
+        />
         <span>{{username}}</span>
-        <i class="fa fa-arrow-right-from-bracket logout"
-          ><button>Logout</button></i
-        >
+        <i class="fa fa-arrow-right-from-bracket logout">
+          <a href="/logout">logout</a>
+        </i>
       </div>
     </header>
     <!-- End of Header -->
@@ -86,3 +87,4 @@
     </footer>
   </body>
 </html>
+{% endblock %}
