@@ -1,32 +1,33 @@
 <head>
-    <link rel="stylesheet" href="static/css/server.css">
+	<link rel="stylesheet" href="static/css/server.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <div class="left-column">
-            <div class="section">
-                <h1>Server IP: <span id="ip"></span></h1>
-                <img src="static/media/construct.jpg" width = 50%>
-            </div>
-        </div>
-        <!-- Start of Right Section -->
-        <div class="right-column">
-            <div class="section">
-                <h1>Server CPU Usage: <span id="cpu_usage"></span>%</h1> 
-                <div class="usage-graph">
-                    <canvas id="cpu_usage_graph"></canvas>
-                </div>
-            </div>
-            <div class="section">
-                <h1>Server RAM Usage: <span id="ram_usage"></span>%</h1> 
-                <div class="usage-graph">
-                    <canvas id="memory_usage_graph"></canvas>
-                </div>
-            </div>
-        </div>
-        <!-- End of Right Section -->
-    </div>
-    <script src="static/js/lib/chart.js"></script>
-    <script src="static/js/lib/socket.io.js" crossorigin="anonymous"></script>
-    <script src="static/js/server.js"></script>
+	<div class="dashboard-container">
+		<div class="left-column">
+			<div class="section">
+				<h1>Server IP: <span id="ip"></span>
+				</h1>
+				<img src="static/media/construct.jpg" width=50%>
+			</div>
+		</div>
+		<!-- Start of Right Section -->
+		<div class="right-column">
+			<div class="section">
+				<h1>Server CPU Usage: <span id="cpu_usage"></span>% </h1>
+				<div class="usage-graph">
+					<canvas id="cpu_usage_graph"></canvas>
+				</div>
+			</div>
+			<div class="section">
+				<h1>Server RAM Usage: <span id="ram_usage"></span>% </h1>
+				<div class="usage-graph">
+					<canvas id="memory_usage_graph"></canvas>
+				</div>
+			</div>
+		</div>
+		<!-- End of Right Section -->
+	</div>
+	<script src="static/js/lib/chart.js"></script>
+	<script src="static/js/lib/socket.io.js" crossorigin="anonymous"></script>
+	<script src="static/js/server.js"></script>
 </body>

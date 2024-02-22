@@ -42,9 +42,11 @@ header {
     color: #8C52FF;
     padding-left: 20px;
     text-align: left;
+    font-size: large;
     display: grid;
-    grid-template-columns: 0.75fr 1.75fr 1fr;
+    grid-template-columns: 0.75fr 1.75fr 0.75fr;
 }
+    
 
 .search-container {
     position: relative;
@@ -61,16 +63,25 @@ header {
 }
 
 i.logout {
-    padding-left: 10px;
+    padding-left: 20px;
     padding-right: 15px;
 }
 
-i.logout a{
+i.logout span{
     cursor: pointer;
     color: #8C52FF;
-    border:none;
-    background-color:transparent;
-    outline:none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 540;
+}
+
+.account { 
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 
 nav {
