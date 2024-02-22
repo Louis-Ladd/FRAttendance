@@ -1,5 +1,5 @@
 Welcome to FRAttendance's documentation!
-===================================
+========================================
 
 **FRAttendance** Is a automatic attendance tool that keeps track of students 
 walking into class and automaticly marks their attendance 
