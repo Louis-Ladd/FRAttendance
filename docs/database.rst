@@ -4,8 +4,8 @@ Database
 
 Classes and their Methods
 -------------------------
-Testing sub section
-^^^^^^^^^^^^^^^^^^^
+Testing Subsection
+******************
 ClassDatabase
 ~~~~~~~~~~~~~
 
