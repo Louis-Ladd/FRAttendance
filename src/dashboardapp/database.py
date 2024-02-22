@@ -95,22 +95,20 @@ class ClassDatabase:
             if first_name != None:
                 updated_columns.append("first = ?")
                 query_by.append(first_name)
-            elif last_name != None:
+            if last_name != None:
                 updated_columns.append("last = ?")
                 query_by.append(last_name)
-            elif photo_path != None:
+            if photo_path != None:
                 updated_columns.append("photo_path = ?")
                 query_by.append(photo_path)
-            elif tardies != None:
+            if tardies != None:
                 updated_columns.append("tardies = ?")
                 query_by.append(tardies)
 
-            else:
-                raise ValueError("At least one field to update must be provided")
 
             query_by.append(student_id)
             query = (
-                f"UPDATE your_class_table_name SET {', '.join(updated_columns)} WHERE id = ?"
+                f"UPDATE {class_name} SET {', '.join(updated_columns)} WHERE id = ?"
             )
             self.cursor.execute(query, tuple(query_by))
             self.connection.commit()
@@ -188,3 +186,6 @@ class ClassDatabase:
 
 test = ClassDatabase()
 
+test.update_student("test", student_id=1, first_name="Carl", last_name="Dave")
+print(test.get_students("test", first_name="Alice"))
+print(test.get_students("test", first_name="Carl"))
