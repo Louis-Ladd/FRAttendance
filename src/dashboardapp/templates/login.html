@@ -9,13 +9,15 @@
 	</head>
 	<body>
 		<div class="login-container"> 
-			{% with messages = get_flashed_messages() %} {% if messages %} 
-			<div class="notification is-danger">
-				{{ messages[0] }}
-				<br>
-				<a href="{{ url_for('auth.signup') }}">Create an account here</a>
-			</div> 
-			{% endif %} {% endwith %} 
+			{% with messages = get_flashed_messages() %} 
+				{% if messages %} 
+				<div class="notification is-danger">
+					{{ messages[0] }}
+					<br>
+					<a href="{{ url_for('auth.signup') }}">Create an account here</a>
+				</div> 
+				{% endif %} 
+			{% endwith %} 
 			<h2>Attendance Dashboard</h2>
 			<h3>Please login</h3>
 			<form class="login-form" method="POST" action="/login">

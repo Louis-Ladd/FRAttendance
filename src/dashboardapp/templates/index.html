@@ -41,10 +41,12 @@
 						<i class="navbar-button fa fa-square active"></i>
 						<span>Dashboard</span>
 					</button>
+					{% if current_user.isAdmin %}
 					<button onclick="pageSwitch('server', '1', false)" id="1">
 						<i class="navbar-button fa fa-server"></i>
 						<span>Server</span>
 					</button>
+					{% endif %}
 					<button onclick="pageSwitch('cameras', '2', false)" id="2">
 						<i class="navbar-button fa fa-layer-group"></i>
 						<span>Cameras</span>

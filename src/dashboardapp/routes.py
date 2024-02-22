@@ -25,7 +25,7 @@ def dashboard():
 def server():
     if current_user.isAdmin:
         return render_template("server.html", server_info=server_info)
-    return "You do not have permission to view this page"
+    return "HTTP 401 Erorr: You are unauthorized to view this page", 401
 
 @main.route("/cameras")
 @login_required
