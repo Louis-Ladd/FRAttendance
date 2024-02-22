@@ -4,10 +4,13 @@ Database
 
 Classes and their Methods
 -------------------------
-Testing Subsection
-******************
+
 ClassDatabase
 ~~~~~~~~~~~~~
+
+1. Class1
+
+2. Class2
 
 .. autoclass:: ClassDatabase
     :members:
