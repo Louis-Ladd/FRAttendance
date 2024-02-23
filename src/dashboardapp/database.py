@@ -40,6 +40,14 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
 
+    def get_class(self, class_name: str):
+        try:
+            self.cursor.execute("SELECT * FROM ?")
+            return self.cursor.fetchall()
+        except Error as e:
+            traceback.print_tb(e.__traceback__)
+            print(f"{e.sqlite_errorname}: {e}")
+
     # Parameterized Queries go brrr
     def get_students(self, class_name, student_id=None, first_name=None, last_name=None):
         """
@@ -69,7 +77,7 @@ class ClassDatabase:
             query = ( 
                 f"SELECT * FROM {class_name} WHERE {', '.join(search_columns)}"
             )
-            print(query)
+
             self.cursor.execute(query, tuple(query_by))
             results = self.cursor.fetchall()
             return results
@@ -122,18 +130,20 @@ class ClassDatabase:
     ):
         """
         Get data from student
-        :param class_name Name of class being accessed
-        :param column_name Which column to access
-        :param student_id Find student by id
-        :param first_name Find student by first name
+        :param class_name: Name of class being accessed
+        :param column_name: Which column to access
+        :param student_id: Find student by id
+        :param first_name: Find student by first name
         """
 
         try:
-            sql_cmd = f"SELECT {column_name} FROM {class_name} WHERE"
-            queries = []
-
-            result = self.cursor.execute(sql_cmd)
-            return result.fetchone()
+            result = self.cursor.execute(
+                f"SELECT {column_name} FROM {class_name}"
+            )
+            result = result.fetchall()
+            for i in range(0,len(result)):
+                result[i] = result[i][0]
+            return result
         
         except Error as e:
             traceback.print_tb(e.__traceback__)
@@ -185,7 +195,3 @@ class ClassDatabase:
 
 
 test = ClassDatabase()
-
-test.update_student("test", student_id=1, first_name="Carl", last_name="Dave")
-print(test.get_students("test", first_name="Alice"))
-print(test.get_students("test", first_name="Carl"))
