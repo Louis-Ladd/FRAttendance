@@ -29,6 +29,18 @@ class ClassDatabase:
                 print("illegal character")
                 return ""
         return input
+    
+    def get_classes(self):
+        try:
+            result = self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+            result = result.fetchall()
+            for i in range(0,len(result)):
+                result[i] = result[i][0]
+
+            return result
+        except Error as e:
+            traceback.print_tb(e.__traceback__)
+            print(f"{e.sqlite_errorname}: {e}")
 
     def create_class(self, class_name: str):
         try:
@@ -195,3 +207,5 @@ class ClassDatabase:
 
 
 test = ClassDatabase()
+
+print(test.get_classes())
