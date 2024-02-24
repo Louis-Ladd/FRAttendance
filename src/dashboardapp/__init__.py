@@ -6,9 +6,11 @@ from .events import socketio
 from .updater import updateThread
 
 
+print("Creating auth database...")
 db = SQLAlchemy()
 
 def create_app():
+    print("Creating flask app...")
     app = Flask(__name__)
     app.config["DEBUG"] = True
     app.config["SECRET_KEY"] = "secret!" # Please for the love of christ change before production

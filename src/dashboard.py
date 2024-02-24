@@ -1,5 +1,6 @@
 from dashboardapp import create_app, socketio
 
+print("Creating applicaiton...")
 app = create_app()
 
 if __name__ == "__main__":

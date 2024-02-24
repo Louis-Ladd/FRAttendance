@@ -7,7 +7,8 @@ from threading import Thread
 hostname = socket.gethostname()
 ip_addr = socket.gethostbyname(hostname)
 server_info = {"ip" : socket.gethostbyname(hostname), "hostname" : hostname, "cpu_usage" : [], "ram_usage" : []}
-server_info["cpu_usage"].append(psutil.cpu_percent(4))
+print("Fetching server info intital value...")
+server_info["cpu_usage"].append(psutil.cpu_percent(4)) # psutil is blocking untill it gets its own thread
 server_info["ram_usage"].append(psutil.virtual_memory().percent)
 
 class updateThread(Thread):
