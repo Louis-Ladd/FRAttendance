@@ -9,6 +9,7 @@ ClassDatabase
 ~~~~~~~~~~~~~
 
 **This is a class**
++++++++++++++++++++
     This is the definition for the class
 
 User
