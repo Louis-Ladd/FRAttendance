@@ -4,10 +4,12 @@ from flask_login import LoginManager
 
 from .events import socketio
 from .updater import updateThread
+from .database import ClassDatabase
 
 
 print("Creating auth database...")
 db = SQLAlchemy()
+school_db = ClassDatabase()
 
 def create_app():
     print("Creating flask app...")

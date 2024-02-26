@@ -13,7 +13,7 @@ import traceback
 class ClassDatabase:
     def __init__(self):
         self.db_name = "database.db"
-        self.connection = connect(self.db_name)
+        self.connection = connect(self.db_name, check_same_thread=False)
         self.cursor = self.connection.cursor()
 
     def __del__(self):
@@ -52,13 +52,16 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
 
-    def get_class(self, class_name: str):
+    def get_class(self, class_name: str, top = None):
         try:
             self.cursor.execute(f"SELECT * FROM {class_name}")
-            return self.cursor.fetchall()
+
+            return self.cursor.fetchall()[:top] if top else self.cursor.fetchall()
+        
         except Error as e:
             traceback.print_tb(e.__traceback__)
-            print(f"{e.sqlite_errorname}: {e}")
+            print(f"Error: {e}")
+            return None
 
     # Parameterized Queries go brrr
     def get_students(self, class_name, student_id=None, first_name=None, last_name=None):
@@ -208,4 +211,5 @@ class ClassDatabase:
 
 test = ClassDatabase()
 
-print(test.get_class("cyber"))
+
+print(test.get_classes())

@@ -43,6 +43,17 @@
     width: 90%;
     height: 600px; /* Keep height constant, elements will scroll */
     color: white;
+    overflow-y: scroll;
+}
+
+.classlist ul {
+    list-style-type: armenian;
+}
+
+.classlist ul li {
+    color: black;
+    background-color: #ffffff;
+    margin-top: 50px;
 }
 
 /* h2 inherits margin from user agent stylesheet,

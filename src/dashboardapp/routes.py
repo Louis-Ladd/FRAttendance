@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from .updater import server_info
+from . import school_db
 
 main = Blueprint("main", __name__)
 
@@ -19,6 +20,11 @@ def home():
 @login_required
 def dashboard():
     return render_template("dashboard.html")
+
+@main.route('/getClass/<jsdata>')
+@login_required
+def get_javascript_data(jsdata):
+    return school_db.get_class(jsdata, top=20)
 
 @main.route("/server")
 @login_required
@@ -42,3 +48,4 @@ def classes():
 @login_required
 def notifications():
     return render_template("notifications.html")
+

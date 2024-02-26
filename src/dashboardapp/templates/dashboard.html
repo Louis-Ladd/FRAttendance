@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Class Dashboard</title>
 		<link rel="stylesheet" href="static/css/dashboard.css" />
+		<script src="static/js/lib/jquery.min.js"></script>
 		<script src="static/js/index.js"></script>
-		<script src="static/js/dashboard.js"></script>
 	</head>
 	<body>
 		<div class="dashboard-container">
@@ -43,9 +43,11 @@
 			</div>
 			<div class="right-column">
 				<div class="classlist section">
-					<h2>>Class Name Here< </h2>
+					<h2 id="classListTitle"></h2>
+					<div id="classList"></div>
 				</div>
 			</div>
 		</div>
+		<script src="static/js/dashboard.js"></script>
 	</body>
 </html>
