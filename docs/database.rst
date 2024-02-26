@@ -8,29 +8,25 @@ Classes and their Methods
 ClassDatabase
 ~~~~~~~~~~~~~
 
-Class1
-^^^^^^
-* description
-* example
+Parameters
++++++++++++++++++++
 
-Class2
-^^^^^^
-* description
-* example
-Class3
-^^^^^^
-* description
-* example
+class_name
+^^^^^^^^^^
+    This vairable is attached to the data set that holds the student data.
 
-Class4
-~~~~~~
-* description
-* example
+student_id
+^^^^^^^^^^
+    holds the student identitiy numbers.
+    
+    this variable is linked to an integer and can be any real-whole number that has a value higher than 0.
 
-Class5
-------
-* description
-* example
+Defenitions
++++++++++++++++++++
+
+
+User
+~~~~
 
 .. autoclass:: ClassDatabase
     :members:

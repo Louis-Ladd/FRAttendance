@@ -1,0 +1,14 @@
+.EditButtonsColumn {
+    float: left;
+    width: 10%;
+    border-radius: 25px; /* Added 'px' unit */
+}
+
+.box {
+    /* Example styles for the new box */
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    background-color: lightblue;
+    border: 1px solid black;
+}
