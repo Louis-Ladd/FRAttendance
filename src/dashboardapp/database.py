@@ -45,7 +45,7 @@ class ClassDatabase:
     def create_class(self, class_name: str):
         try:
             self.cursor.execute(
-                f"CREATE TABLE {class_name}(first, last, id, photo_path, tardies)"
+                f"CREATE TABLE {self.sanitise_input(class_name)}(first, last, id, photo_path, tardies)"
             )
             self.connection.commit()
         except Error as e:
@@ -54,7 +54,7 @@ class ClassDatabase:
 
     def get_class(self, class_name: str):
         try:
-            self.cursor.execute("SELECT * FROM ?")
+            self.cursor.execute(f"SELECT * FROM {class_name}")
             return self.cursor.fetchall()
         except Error as e:
             traceback.print_tb(e.__traceback__)
@@ -87,7 +87,7 @@ class ClassDatabase:
                 query_by.append(last_name+'%')
 
             query = ( 
-                f"SELECT * FROM {class_name} WHERE {', '.join(search_columns)}"
+                f"SELECT * FROM {self.sanitise_input(class_name)} WHERE {', '.join(search_columns)}"
             )
 
             self.cursor.execute(query, tuple(query_by))
@@ -128,7 +128,7 @@ class ClassDatabase:
 
             query_by.append(student_id)
             query = (
-                f"UPDATE {class_name} SET {', '.join(updated_columns)} WHERE id = ?"
+                f"UPDATE {self.sanitise_input(class_name)} SET {', '.join(updated_columns)} WHERE id = ?"
             )
             self.cursor.execute(query, tuple(query_by))
             self.connection.commit()
@@ -150,7 +150,7 @@ class ClassDatabase:
 
         try:
             result = self.cursor.execute(
-                f"SELECT {column_name} FROM {class_name}"
+                f"SELECT {self.sanitise_input(column_name)} FROM {self.sanitise_input(class_name)}" 
             )
             result = result.fetchall()
             for i in range(0,len(result)):
@@ -208,4 +208,4 @@ class ClassDatabase:
 
 test = ClassDatabase()
 
-print(test.get_classes())
+print(test.get_class("cyber"))
