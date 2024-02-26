@@ -8,29 +8,12 @@ Classes and their Methods
 ClassDatabase
 ~~~~~~~~~~~~~
 
-Class1
-^^^^^^
-* description
-* example
+**This is a class**
++++++++++++++++++++
+    This is the definition for the class
 
-Class2
-^^^^^^
-* description
-* example
-Class3
-^^^^^^
-* description
-* example
-
-Class4
-~~~~~~
-* description
-* example
-
-Class5
-------
-* description
-* example
+User
+~~~~
 
 .. autoclass:: ClassDatabase
     :members:
