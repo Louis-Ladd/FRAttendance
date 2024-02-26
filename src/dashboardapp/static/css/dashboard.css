@@ -20,12 +20,12 @@
 .section {
     margin: 10px;
     padding: 20px;
-    background-color:#8C52FF;
     border-radius: 10px;
 }
 
 .camera-overview {
     color: white;
+    background-color:#8C52FF;
 }
 
 .camera-overview .unfilled-button,
@@ -36,6 +36,7 @@
 
 .overview {
     height: 100%;
+    background-color:#8C52FF;
 }
 
 .classlist {
@@ -44,16 +45,43 @@
     height: 600px; /* Keep height constant, elements will scroll */
     color: white;
     overflow-y: scroll;
+    padding-top: 0px;
+}
+
+.classlist #classListTitle {
+    background-color:#8C52FF;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .classlist ul {
-    list-style-type: armenian;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .classlist ul li {
+    height: 64px;
     color: black;
-    background-color: #ffffff;
+    background-color: #00ff62;
+    border-radius: 20px;
     margin-top: 50px;
+    padding: 20px;
+}
+
+.classlist ul li:nth-child(odd) {
+    background-color: #ff0000;
+}
+
+.classlist ul li div{
+}
+
+.classlist ul li img {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    margin-right: 11px;
+    margin-bottom: auto;
+    float: left;
 }
 
 /* h2 inherits margin from user agent stylesheet,

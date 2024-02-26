@@ -36,7 +36,15 @@ function makeClassListFromData(data) {
     var studentElement = document.createElement("ul");
     for (var i = 0; i < data.length; i++){
         var item = document.createElement("li");
-        item.appendChild(document.createTextNode(data[i][0]));
+        var textDiv = document.createElement("div");
+        var image = document.createElement("img")
+        image.src = "static/media/avatar.jpg"
+        textDiv.appendChild(image)
+        textDiv.appendChild(document.createTextNode(data[i][0] + " "));
+        textDiv.appendChild(document.createTextNode(data[i][1]));
+        textDiv.appendChild(document.createElement("br"));
+        textDiv.appendChild(document.createTextNode("Tardies: " + data[i][4]));
+        item.appendChild(textDiv);
         studentElement.appendChild(item);
     }
     document.getElementById("classList").appendChild(studentElement)
