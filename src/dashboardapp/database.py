@@ -1,4 +1,4 @@
-from sqlite3 import connect, Error 
+from sqlite3 import connect, Error
 import traceback
 
 
@@ -29,12 +29,14 @@ class ClassDatabase:
                 print("illegal character")
                 return ""
         return input
-    
+
     def get_classes(self):
         try:
-            result = self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+            result = self.cursor.execute(
+                "SELECT name FROM sqlite_master WHERE type='table';"
+            )
             result = result.fetchall()
-            for i in range(0,len(result)):
+            for i in range(0, len(result)):
                 result[i] = result[i][0]
 
             return result
@@ -52,26 +54,28 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
 
-    def get_class(self, class_name: str, top = None):
+    def get_class(self, class_name: str, top=None):
         try:
             self.cursor.execute(f"SELECT * FROM {class_name}")
 
             return self.cursor.fetchall()[:top] if top else self.cursor.fetchall()
-        
+
         except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"Error: {e}")
             return None
 
     # Parameterized Queries go brrr
-    def get_students(self, class_name, student_id=None, first_name=None, last_name=None):
+    def get_students(
+        self, class_name, student_id=None, first_name=None, last_name=None
+    ):
         """
         Retrieve student information based on ID, first name, or last name.
         :param student_id: Student's ID
         :param first_name: Student's first name
         :param last_name: Student's last name
         """
-        
+
         try:
 
             search_columns = []
@@ -83,26 +87,32 @@ class ClassDatabase:
 
             if first_name != None:
                 search_columns.append(f"first LIKE ?")
-                query_by.append(first_name+'%')
+                query_by.append(first_name + "%")
 
             if last_name != None:
                 search_columns.append(f"last LIKE ?")
-                query_by.append(last_name+'%')
+                query_by.append(last_name + "%")
 
-            query = ( 
-                f"SELECT * FROM {self.sanitise_input(class_name)} WHERE {', '.join(search_columns)}"
-            )
+            query = f"SELECT * FROM {self.sanitise_input(class_name)} WHERE {', '.join(search_columns)}"
 
             self.cursor.execute(query, tuple(query_by))
             results = self.cursor.fetchall()
             return results
-        
+
         except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
             return []
 
-    def update_student(self, class_name, student_id, first_name=None, last_name=None, photo_path=None, tardies=None):
+    def update_student(
+        self,
+        class_name,
+        student_id,
+        first_name=None,
+        last_name=None,
+        photo_path=None,
+        tardies=None,
+    ):
         """
         Update a student's information.
         :param student_id: ID of the student to update.
@@ -128,11 +138,8 @@ class ClassDatabase:
                 updated_columns.append("tardies = ?")
                 query_by.append(tardies)
 
-
             query_by.append(student_id)
-            query = (
-                f"UPDATE {self.sanitise_input(class_name)} SET {', '.join(updated_columns)} WHERE id = ?"
-            )
+            query = f"UPDATE {self.sanitise_input(class_name)} SET {', '.join(updated_columns)} WHERE id = ?"
             self.cursor.execute(query, tuple(query_by))
             self.connection.commit()
 
@@ -141,7 +148,7 @@ class ClassDatabase:
             print(f"{e.sqlite_errorname}: {e}")
 
     def get_data_in_column(
-        self, class_name, column_name, student_id : str = None, first_name : str = None
+        self, class_name, column_name, student_id: str = None, first_name: str = None
     ):
         """
         Get data from student
@@ -153,13 +160,13 @@ class ClassDatabase:
 
         try:
             result = self.cursor.execute(
-                f"SELECT {self.sanitise_input(column_name)} FROM {self.sanitise_input(class_name)}" 
+                f"SELECT {self.sanitise_input(column_name)} FROM {self.sanitise_input(class_name)}"
             )
             result = result.fetchall()
-            for i in range(0,len(result)):
+            for i in range(0, len(result)):
                 result[i] = result[i][0]
             return result
-        
+
         except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
@@ -191,7 +198,7 @@ class ClassDatabase:
                 ("Alice", "Smith", 1, "/path/to/photo1", 0),
                 ("Bob", "Johnson", 2, "/path/to/photo2", 1),
                 ("Charlie", "Brown", 3, "/path/to/photo3", 2),
-                ("David", "Wilson", 4, "/path/to/photo4", 0),                
+                ("David", "Wilson", 4, "/path/to/photo4", 0),
                 ("Ella", "Martinez", 5, "/path/to/photo5", 1),
                 ("Frank", "Miller", 6, "/path/to/photo6", 3),
                 ("Grace", "Davis", 7, "/path/to/photo7", 0),
@@ -207,6 +214,16 @@ class ClassDatabase:
         except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
+
+    def createStudent(self, student_name: str, last_name: str):
+        try:
+            query = "INSERT INTO students (name) VALUES (?)"
+            self.cursor.execute(query, (student_name,))
+            self.connection.commit()
+            return self.cursor.lastrowid
+        except Exception as e:
+            # You might want to log this exception for debugging
+            raise e
 
 
 test = ClassDatabase()
