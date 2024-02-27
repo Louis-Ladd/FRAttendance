@@ -64,6 +64,18 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"Error: {e}")
             return None
+        
+    def create_student(self, class_name, student_name: str, last_name: str, student_id : int, photo_path : str):
+        #TODO: Add check for duplicate students!!! - Louis
+        try:
+            query = f"INSERT INTO {class_name} (first, last, id, photo_path, tardies) VALUES (?,?,?,?,?)"
+            self.cursor.execute(query, (student_name, last_name, student_id, photo_path, 0))
+            self.connection.commit()
+            return self.cursor.lastrowid
+        except Exception as e:
+            traceback.print_tb(e.__traceback__)
+            print(f"Error: {e}")
+            return None
 
     # Parameterized Queries go brrr
     def get_students(
@@ -215,18 +227,5 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
 
-    def createStudent(self, student_name: str, last_name: str):
-        try:
-            query = "INSERT INTO students (name) VALUES (?)"
-            self.cursor.execute(query, (student_name,))
-            self.connection.commit()
-            return self.cursor.lastrowid
-        except Exception as e:
-            # You might want to log this exception for debugging
-            raise e
-
-
-test = ClassDatabase()
-
-
-print(test.get_classes())
+if __name__ == "__main__":
+    test = ClassDatabase()

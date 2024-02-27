@@ -27,10 +27,10 @@ def dashboard():
     return render_template("dashboard.html")
 
 
-@main.route("/getClass/<jsdata>")
+@main.route("/getClass/<jsdata>/<top>")
 @login_required
-def get_javascript_data(jsdata):
-    return school_db.get_class(jsdata, top=20)
+def get_javascript_data(jsdata = None, top = None):
+    return school_db.get_class(jsdata, top=int(top))
 
 
 @main.route("/server")
@@ -57,8 +57,12 @@ def classes():
 @main.route("/createStudent", methods=["POST"])
 @login_required
 def create_student():
+    # Learn how post forms work and that'll make this easier to implement.
+    # You can copy how it was implemented in ./templates/login.html ln 23-37 and ./auth.py ln 17-30 
+    # rewrite and implement it into classes after learning how it works. - Louis
+    if not current_user.isAdmin:
+        return "HTTP 401 Error: You are unauthorized to do that", 401
     return create_student()
-
 
 @main.route("/notifications")
 @login_required

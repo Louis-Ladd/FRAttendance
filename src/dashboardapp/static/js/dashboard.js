@@ -27,25 +27,31 @@ function tabSwitch(id){
 
 function makeClassList() {
     document.getElementById("classListTitle").innerHTML = "Cyber"
-    $.get("/getClass/cyber", function(data){
+    $.get("/getClass/cyber/20", function(data){
         makeClassListFromData(data);
     });
 }
 
+// Yippee, building element from scratch - Louis
 function makeClassListFromData(data) {
     var studentElement = document.createElement("ul");
     for (var i = 0; i < data.length; i++){
         var item = document.createElement("li");
         var textDiv = document.createElement("div");
         var image = document.createElement("img")
+        var name = document.createElement("h3");
+        name.textContent = data[i][0] + " ";
+        name.textContent += data[i][1];
         image.src = "static/media/avatar.jpg"
         textDiv.appendChild(image)
-        textDiv.appendChild(document.createTextNode(data[i][0] + " "));
-        textDiv.appendChild(document.createTextNode(data[i][1]));
+        textDiv.appendChild(name);
         textDiv.appendChild(document.createElement("br"));
         textDiv.appendChild(document.createTextNode("Tardies: " + data[i][4]));
         item.appendChild(textDiv);
         studentElement.appendChild(item);
+        if (i != data.length-1) {
+            studentElement.appendChild(document.createElement("hr"));
+        }
     }
     document.getElementById("classList").appendChild(studentElement)
 }

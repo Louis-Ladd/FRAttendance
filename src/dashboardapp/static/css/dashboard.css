@@ -2,6 +2,10 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
 
 .dashboard-container {
     display: flex
@@ -42,34 +46,62 @@
 .classlist {
     grid-column: span 2;
     width: 90%;
-    height: 600px; /* Keep height constant, elements will scroll */
+    height: 80vh; /* Keep height constant, elements will scroll */
     color: white;
     overflow-y: scroll;
     padding-top: 0px;
 }
 
+.classlist::-webkit-scrollbar {
+    display: none;
+}
+
 .classlist #classListTitle {
-    background-color:#8C52FF;
+    color: gray;
     border-radius: 10px;
     padding: 20px;
 }
 
+.fade-list {
+    position: relative;
+    width: 100%;
+    height: 50px; 
+    top: -50px;
+    z-index: 10;
+    background: linear-gradient(0deg, rgba(238,238,238,1) 0%, rgba(238,238,238,1) 69%, rgba(238, 238, 238, 0) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fade-list a {
+    margin-top: 20px;
+    color: #8C52FF;
+    font-size: large;
+    text-decoration: none;
+}
+
 .classlist ul {
+    background-color: white;
+    border-radius: 20px;
     list-style-type: none;
     padding-left: 0;
+}
+
+.classlist ul hr{
+    width: 60%;
 }
 
 .classlist ul li {
     height: 64px;
     color: black;
-    background-color: #00ff62;
+    background-color: #ffffff;
     border-radius: 20px;
-    margin-top: 50px;
     padding: 20px;
 }
 
-.classlist ul li:nth-child(odd) {
-    background-color: #ff0000;
+.classlist ul li h3{
+    margin: 0;
 }
 
 .classlist ul li div{
