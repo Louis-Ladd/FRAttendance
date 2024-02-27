@@ -1,14 +1,12 @@
 from sqlite3 import connect, Error
 import traceback
 
-
 # TODO:
 #   Follow object oreintated programming paradigms
 #   Check if .db file exists, then check if table exists within sql.
 #   STRUCTURE Plan:
 #   Databases hold every class which are tables,
 #   The students have the columns: first name, last name, UUID (generated at student(row) creation), path to photo(s), tardies
-
 
 class ClassDatabase:
     def __init__(self):

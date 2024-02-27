@@ -40,19 +40,16 @@ def server():
         return render_template("server.html", server_info=server_info)
     return "HTTP 401 Erorr: You are unauthorized to view this page", 401
 
-
 @main.route("/cameras")
 @login_required
 def camears():
     # TODO: be prepared to pipe a lot of information from backend to frontend
     return render_template("cameras.html")
 
-
 @main.route("/classes")
 @login_required
 def classes():
     return render_template("classes.html")
-
 
 @main.route("/createStudent", methods=["POST"])
 @login_required

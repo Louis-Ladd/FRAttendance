@@ -25,9 +25,16 @@ function tabSwitch(id){
     //TODO: Validate this code please, this feels wrong... it is js tho - Louis
 }
 
-function makeClassList() {
-    document.getElementById("classListTitle").innerHTML = "Cyber"
-    $.get("/getClass/cyber/20", function(data){
+String.prototype.format = function () {
+    var args = arguments;
+    return this.replace(/{([0-9]+)}/g, function (match, index) {
+        return typeof args[index] == 'undefined' ? match : args[index];
+    });
+};
+
+function makeClassList(className) {
+    document.getElementById("classListTitle").innerHTML = className
+    $.get('/getClass/{0}/20'.format(className), function(data){
         makeClassListFromData(data);
     });
 }
@@ -56,4 +63,4 @@ function makeClassListFromData(data) {
     document.getElementById("classList").appendChild(studentElement)
 }
 //document.getElementById("classList").appendChild(makeClassList())
-makeClassList()
+makeClassList("vr")
