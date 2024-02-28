@@ -8,6 +8,7 @@ import traceback
 #   Databases hold every class which are tables,
 #   The students have the columns: first name, last name, UUID (generated at student(row) creation), path to photo(s), tardies
 
+
 class ClassDatabase:
     def __init__(self):
         self.db_name = "database.db"
@@ -62,12 +63,21 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"Error: {e}")
             return None
-        
-    def create_student(self, class_name, student_name: str, last_name: str, student_id : int, photo_path : str):
-        #TODO: Add check for duplicate students!!! - Louis
+
+    def create_student(
+        self,
+        class_name,
+        student_name: str,
+        last_name: str,
+        student_id: int,
+        photo_path: str,
+    ):
+        # TODO: Add check for duplicate students!!! - Louis
         try:
             query = f"INSERT INTO {class_name} (first, last, id, photo_path, tardies) VALUES (?,?,?,?,?)"
-            self.cursor.execute(query, (student_name, last_name, student_id, photo_path, 0))
+            self.cursor.execute(
+                query, (student_name, last_name, student_id, photo_path, 0)
+            )
             self.connection.commit()
             return self.cursor.lastrowid
         except Exception as e:
@@ -224,6 +234,18 @@ class ClassDatabase:
         except Error as e:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
+
+    def createStudent(self, first_name: str, last_name: str):
+        try:
+            query = "INSERT INTO students (first, last) VALUES (?, ?)"
+            self.cursor.execute(query, (first_name, last_name))
+            self.connection.commit()
+            return self.cursor.lastrowid
+        except Exception as e:
+            # Log this exception for debugging
+            print(f"Error: {e}")
+            return None
+
 
 if __name__ == "__main__":
     test = ClassDatabase()

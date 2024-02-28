@@ -4,21 +4,21 @@ document.getElementById("createStudent").addEventListener("click", function() {
 });
 
 document.getElementById("confirmCreateStudent").addEventListener("click", function() {
-    var firstName = document.getElementById("firstName").value;
-    var lastName = document.getElementById("lastName").value;
+    var first_Name = document.getElementById("first_Name").value;
+    var last_Name = document.getElementById("last_Name").value;
 
     // Simple validation
-    if(firstName.trim() === "" || lastName.trim() === "") {
+    if(first_Name.trim() === "" || last_Name.trim() === "") {
         alert("Please enter both first and last names.");
         return;
     }
 
     // Send data to server
-    $.post("/createStudent", { name: firstName, last_name: lastName }, function(response) {
+    $.post("/createStudent", { first_name: first_Name, last_name: last_Name }, function(response) {
         // Hide the input fields and clear them
         document.getElementById("studentInputFields").style.display = "none";
-        document.getElementById("firstName").value = "";
-        document.getElementById("lastName").value = "";
+        document.getElementById("first_Name").value = "";
+        document.getElementById("last_Name").value = "";
 
         // Update the class list
         makeClassList();
