@@ -7,11 +7,11 @@
 <body>
     <div class="EditButtonsColumn">
         <button id="createStudent">Create Student</button>
-        <div id="studentInputFields" style="display: none;">
-            <input type="text" id="first_Name" placeholder="First Name">
-            <input type="text" id="last_Name" placeholder="Last Name">
-            <button id="confirmCreateStudent">Confirm</button>
-        </div>
+        <form id="studentInputFields" method="POST" action="/createStudent" style="display: none;">
+            <input type="text" name="first_name" placeholder="First Name">
+            <input type="text" name="last_name" placeholder="Last Name">
+            <button id="confirmCreateStudent" onclick="">Confirm</button>
+        </form>
         <h2 id="classListTitle"></h2>
     </div>
     <div id="classList">

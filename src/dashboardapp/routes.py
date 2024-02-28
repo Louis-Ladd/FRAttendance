@@ -26,12 +26,15 @@ def home():
 def dashboard():
     return render_template("dashboard.html")
 
+@main.route("/getClass/<jsdata>")
+@login_required
+def get_javascript_data(jsdata = None ):
+    return school_db.get_class(jsdata)
 
 @main.route("/getClass/<jsdata>/<top>")
 @login_required
-def get_javascript_data(jsdata=None, top=None):
+def get_javascript_data_top(jsdata=None, top=None):
     return school_db.get_class(jsdata, top=int(top))
-
 
 @main.route("/server")
 @login_required
@@ -54,7 +57,7 @@ def classes():
     return render_template("classes.html")
 
 
-@main.route("/createStudent", methods=["POST"])
+@main.route("/createStudent", methods=['POST'])
 @login_required
 def create_student():
     # Learn how post forms work and that'll make this easier to implement.
@@ -62,22 +65,18 @@ def create_student():
     # rewrite and implement it into classes after learning how it works. - Louis
     if not current_user.isAdmin:
         return "HTTP 401 Error: You are unauthorized to do that", 401
-    return create_student()
+    first_name = request.form.get('first_name')  # Changed from "first_name" to "name"
+    last_name = request.form.get('last_name')
+    print(f"'Made' the student {first_name} {last_name}")
+    return redirect(url_for("main.classes"))
+    if not first_name or not last_name:
+        return "Missing student name", 400
+    student_id = school_db.createStudent(first_name, last_name)
+    if student_id is not None:
+        return redirect(url_for("main.classes"))
+    else:
+        return "Failed to create student", 500
 
-
-def create_student_route():
-    if request.method == "POST":
-        data = request.form
-        first_name = data.get("first_name")  # Changed from "first_name" to "name"
-        last_name = data.get("last_name")
-        if not first_name or not last_name:
-            return "Missing student name", 400
-
-        student_id = school_db.createStudent(first_name, last_name)
-        if student_id is not None:
-            return jsonify({"student_id": student_id}), 201
-        else:
-            return "Failed to create student", 500
 
 
 @main.route("/notifications")

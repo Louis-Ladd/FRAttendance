@@ -3,7 +3,7 @@ document.getElementById("createStudent").addEventListener("click", function() {
     document.getElementById("studentInputFields").style.display = "block";
 });
 
-document.getElementById("confirmCreateStudent").addEventListener("click", function() {
+/*document.getElementById("confirmCreateStudent").addEventListener("click", function() {
     var first_Name = document.getElementById("first_Name").value;
     var last_Name = document.getElementById("last_Name").value;
 
@@ -23,4 +23,4 @@ document.getElementById("confirmCreateStudent").addEventListener("click", functi
         // Update the class list
         makeClassList();
     });
-});
+});*/
