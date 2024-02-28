@@ -249,3 +249,4 @@ class ClassDatabase:
 
 if __name__ == "__main__":
     test = ClassDatabase()
+    print(test.get_classes())

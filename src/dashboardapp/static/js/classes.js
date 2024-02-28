@@ -3,24 +3,23 @@ document.getElementById("createStudent").addEventListener("click", function() {
     document.getElementById("studentInputFields").style.display = "block";
 });
 
-/*document.getElementById("confirmCreateStudent").addEventListener("click", function() {
-    var first_Name = document.getElementById("first_Name").value;
-    var last_Name = document.getElementById("last_Name").value;
 
-    // Simple validation
-    if(first_Name.trim() === "" || last_Name.trim() === "") {
-        alert("Please enter both first and last names.");
-        return;
-    }
+function loadStudents(className) {
+    fetch(`/getClass/${className}`)
+        .then(response => response.json())
+        .then(data => {
+            const studentContainer = document.getElementById('studentContainer');
+            studentContainer.innerHTML = ''; // Clear existing student boxes
 
-    // Send data to server
-    $.post("/createStudent", { first_name: first_Name, last_name: last_Name }, function(response) {
-        // Hide the input fields and clear them
-        document.getElementById("studentInputFields").style.display = "none";
-        document.getElementById("first_Name").value = "";
-        document.getElementById("last_Name").value = "";
+            data.forEach(student => {
+                const studentBox = document.createElement('div');
+                studentBox.className = 'student-box';
+                studentBox.textContent = `${student.first_name} ${student.last_name}`; // Adjust based on your data structure
+                studentContainer.appendChild(studentBox);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
 
-        // Update the class list
-        makeClassList();
-    });
-});*/
+// Example usage
+loadStudents("cyber"); // Replace "Math101" with the class name you want to load
