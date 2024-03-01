@@ -20,8 +20,13 @@ class ClassDatabase:
 
     def sanitise_input(self, input: str) -> str:
         """
-        :param input Sanitise untrusted string for SQL qeuries
-        :returns: empty string if non alpha numeric or contains SQL commands
+        Sanitises the input string by removing any non-alphanumeric characters or spaces. 
+
+        Args:
+            input (str): The input string to be sanitised.
+
+        Returns:
+            str: The sanitised input string.
         """
         for i in input:
             if not (i.isalnum() or i == " "):
@@ -30,6 +35,9 @@ class ClassDatabase:
         return input
 
     def get_classes(self):
+        """
+        Retrieves the names of all tables (classes) in the SQLite database and returns them as a list.
+        """
         try:
             result = self.cursor.execute(
                 "SELECT name FROM sqlite_master WHERE type='table';"
@@ -44,6 +52,15 @@ class ClassDatabase:
             print(f"{e.sqlite_errorname}: {e}")
 
     def create_class(self, class_name: str):
+        """
+        Create a new table with the given class name in the database.
+
+        Parameters:
+            class_name (str): The name of the class for the new table.
+
+        Returns:
+            None
+        """
         try:
             self.cursor.execute(
                 f"CREATE TABLE {self.sanitise_input(class_name)}(first, last, id, photo_path, tardies)"
@@ -54,6 +71,16 @@ class ClassDatabase:
             print(f"{e.sqlite_errorname}: {e}")
 
     def get_class(self, class_name: str, top=None):
+        """
+        Get the specified class from the database.
+
+        Args:
+            class_name (str): The name of the class to retrieve from the database.
+            top (int, optional): The number of top records to retrieve.
+
+        Returns:
+            list or None: A list of records from the specified class, or None if an error occurs.
+        """
         try:
             self.cursor.execute(f"SELECT * FROM {class_name}")
 
@@ -70,8 +97,21 @@ class ClassDatabase:
         student_name: str,
         last_name: str,
         student_id: int,
-        photo_path: str,
+        photo_path: str
     ):
+        """
+        A function to create a student in the specified class with the given student information.
+
+        Args:
+            class_name (str): The name of the class to which the student belongs.
+            student_name (str): The first name of the student.
+            last_name (str): The last name of the student.
+            student_id (int): The unique ID of the student.
+            photo_path (str): The file path to the student's photo.
+
+        Returns:
+            int or None: The ID of the newly created student, or None if there was an error.
+        """
         # TODO: Add check for duplicate students!!! - Louis
         try:
             query = f"INSERT INTO {class_name} (first, last, id, photo_path, tardies) VALUES (?,?,?,?,?)"
@@ -90,12 +130,15 @@ class ClassDatabase:
         self, class_name, student_id=None, first_name=None, last_name=None
     ):
         """
-        Retrieve student information based on ID, first name, or last name.
-        :param student_id: Student's ID
-        :param first_name: Student's first name
-        :param last_name: Student's last name
+        Retrieves students based on class name and optional student ID, first name, and last name.
+        Args:
+            class_name (str): The name of the class to retrieve students from.
+            student_id (int): Optional. The ID of the student to retrieve.
+            first_name (str): Optional. The first name of the student to retrieve.
+            last_name (str): Optional. The last name of the student to retrieve.
+        Returns:
+            list: A list of students matching the specified criteria.
         """
-
         try:
 
             search_columns = []
@@ -134,12 +177,18 @@ class ClassDatabase:
         tardies=None,
     ):
         """
-        Update a student's information.
-        :param student_id: ID of the student to update.
-        :param first_name: New first name of the student (optional).
-        :param last_name: New last name of the student (optional).
-        :param photo_path: New photo path of the student (optional).
-        :param tardies: New tardies count of the student (optional).
+        Update student information in the database.
+
+        Args:
+            class_name (str): The name of the class.
+            student_id (int): The ID of the student.
+            first_name (str, optional): The first name of the student. Defaults to None.
+            last_name (str, optional): The last name of the student. Defaults to None.
+            photo_path (str, optional): The path to the student's photo. Defaults to None.
+            tardies (int, optional): The number of tardies. Defaults to None.
+
+        Returns:
+            None
         """
         try:
             updated_columns = []
@@ -171,13 +220,17 @@ class ClassDatabase:
         self, class_name, column_name, student_id: str = None, first_name: str = None
     ):
         """
-        Get data from student
-        :param class_name: Name of class being accessed
-        :param column_name: Which column to access
-        :param student_id: Find student by id
-        :param first_name: Find student by first name
+        A function to get data in a specific column from a given class, optionally filtering by student ID or first name.
+        
+        Args:
+            class_name (str): The name of the class/table to retrieve data from.
+            column_name (str): The name of the column to retrieve data from.
+            student_id (str, optional): The ID of the student to filter by. Defaults to None.
+            first_name (str, optional): The first name of the student to filter by. Defaults to None.
+        
+        Returns:
+            list: A list of data from the specified column.
         """
-
         try:
             result = self.cursor.execute(
                 f"SELECT {self.sanitise_input(column_name)} FROM {self.sanitise_input(class_name)}"
@@ -195,12 +248,20 @@ class ClassDatabase:
         self, class_name, column_name, data, student_id="", first_name=""
     ):
         """
-        Insert data into a specific column for a specific row.
-        :param db_name: Name of the database.
-        :param table_name: Name of the table.
-        :param column_name: Name of the column to insert data into.
-        :param data: Data to be inserted.
-        :param row_id: The ID of the row to insert the data into.
+        Sets data in the specified column for a given class and student. 
+
+        Args:
+            class_name (str): The name of the class.
+            column_name (str): The name of the column to set the data in.
+            data (any): The data to set in the column.
+            student_id (str, optional): The ID of the student. Defaults to "".
+            first_name (str, optional): The first name of the student. Defaults to "".
+
+        Raises:
+            ValueError: If both student_id and first_name are empty.
+
+        Returns:
+            None
         """
         if student_id == "" and first_name == "":
             raise ValueError("student_id and first_name cannot both be empty")
@@ -212,7 +273,15 @@ class ClassDatabase:
             print(f"{e.sqlite_errorname}: {e}")
 
     def create_example_data(self, class_name: str):
-        """Adds test data to the specified class"""
+        """
+        Create example data for the given class_name using the provided list of students.
+        
+        Args:
+            class_name (str): The name of the class for which the data is created.
+        
+        Returns:
+            None
+        """
         try:
             students = [
                 ("Alice", "Smith", 1, "/path/to/photo1", 0),
@@ -236,6 +305,16 @@ class ClassDatabase:
             print(f"{e.sqlite_errorname}: {e}")
 
     def createStudent(self, first_name: str, last_name: str):
+        """
+        Create a new student record in the database.
+
+        Parameters:
+            first_name (str): The first name of the student.
+            last_name (str): The last name of the student.
+
+        Returns:
+            int or None: The ID of the newly created student record, or None if an error occurs.
+        """
         try:
             query = "INSERT INTO students (first, last) VALUES (?, ?)"
             self.cursor.execute(query, (first_name, last_name))
