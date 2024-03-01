@@ -90,41 +90,6 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"Error: {e}")
             return None
-
-    def create_student(
-        self,
-        class_name,
-        student_name: str,
-        last_name: str,
-        student_id: int,
-        photo_path: str
-    ):
-        """
-        A function to create a student in the specified class with the given student information.
-
-        Args:
-            class_name (str): The name of the class to which the student belongs.
-            student_name (str): The first name of the student.
-            last_name (str): The last name of the student.
-            student_id (int): The unique ID of the student.
-            photo_path (str): The file path to the student's photo.
-
-        Returns:
-            int or None: The ID of the newly created student, or None if there was an error.
-        """
-        # TODO: Add check for duplicate students!!! - Louis
-        try:
-            query = f"INSERT INTO {class_name} (first, last, id, photo_path, tardies) VALUES (?,?,?,?,?)"
-            self.cursor.execute(
-                query, (student_name, last_name, student_id, photo_path, 0)
-            )
-            self.connection.commit()
-            return self.cursor.lastrowid
-        except Exception as e:
-            traceback.print_tb(e.__traceback__)
-            print(f"Error: {e}")
-            return None
-
     # Parameterized Queries go brrr
     def get_students(
         self, class_name, student_id=None, first_name=None, last_name=None
@@ -304,7 +269,7 @@ class ClassDatabase:
             traceback.print_tb(e.__traceback__)
             print(f"{e.sqlite_errorname}: {e}")
 
-    def createStudent(self, first_name: str, last_name: str):
+    def create_student(self, first_name: str, last_name: str):
         """
         Create a new student record in the database.
 
