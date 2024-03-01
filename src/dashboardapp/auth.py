@@ -42,7 +42,7 @@ def signup_post():
         flash('User already exists')
         return redirect(url_for('auth.signup'))
 
-    new_user = User(username=username, name=name, password=generate_password_hash(password, method='scrypt', salt_length=16), isAdmin=(username == "admin"))
+    new_user = User(username=username, name=name, password=generate_password_hash(password, method='scrypt', salt_length=16), classes="", isAdmin=(username == "admin"))
 
     db.session.add(new_user)
     db.session.commit()
