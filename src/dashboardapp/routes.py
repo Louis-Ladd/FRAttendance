@@ -24,7 +24,7 @@ def home():
 @main.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", user_classes=current_user.get_classes())
 
 @main.route("/server")
 @login_required
@@ -82,3 +82,23 @@ def create_student():
         return redirect(url_for("main.classes"))
     else:
         return "Failed to create student", 500
+    
+@main.route ("/users/addClass", methods=["POST"])
+@login_required
+def user_add_class():
+    if not current_user.isAdmin:
+        return "HTTP 401 Error: You are unauthorized to do that", 401
+    username = request.form.get("username")
+    class_name = request.form.get("class_name")
+    current_user.add_class_to_user(class_name, username)
+    return redirect(url_for("main.classes"))
+
+@main.route ("/users/removeClass", methods=["POST"])
+@login_required
+def user_remove_class():
+    if not current_user.isAdmin:
+        return "HTTP 401 Error: You are unauthorized to do that", 401
+    username = request.form.get("username")
+    class_name = request.form.get("class_name")
+    current_user.remove_class_from_user(class_name, username)
+    return redirect(url_for("main.classes"))

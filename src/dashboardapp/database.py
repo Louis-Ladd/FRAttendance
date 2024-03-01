@@ -325,7 +325,6 @@ class ClassDatabase:
             print(f"Error: {e}")
             return None
 
-
 if __name__ == "__main__":
     test = ClassDatabase()
     print(test.get_classes())
