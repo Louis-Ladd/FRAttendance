@@ -77,7 +77,7 @@ def create_student():
     return redirect(url_for("main.classes"))
     if not first_name or not last_name:
         return "Missing student name", 400
-    student_id = school_db.createStudent(first_name, last_name)
+    student_id = school_db.create_student(first_name, last_name)
     if student_id is not None:
         return redirect(url_for("main.classes"))
     else:
