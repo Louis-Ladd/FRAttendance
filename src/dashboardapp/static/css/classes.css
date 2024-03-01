@@ -6,9 +6,23 @@
 
 .box {
     /* Example styles for the new box */
-    width: 100px;
+    width: 300px;
     height: 100px;
     margin: 10px;
-    background-color: lightblue;
-    border: 1px solid black;
+    background-color: rgb(140 82 255);
+    border: 3px solid black;
+    color: white;
+    border-radius: 5px;
+    padding: 10px; 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
+}
+
+#studentContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal-width columns */
+    grid-gap: 10px; /* Adds space between the student boxes */
+}
+
+.StudentName{
+    font-weight: bold;
 }

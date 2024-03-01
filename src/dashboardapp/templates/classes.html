@@ -3,6 +3,15 @@
 <head>
     <link rel="stylesheet" href="static/css/classes.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+
+    <template id="studentBoxTemplate">
+        <div class="student-box">
+            <div class="box">
+                <div class="StudentName"></div>
+                <div class="StudentTardies"></div>
+            </div>
+        </div>
+    </template>
 </head>
 <body>
     <div class="EditButtonsColumn">
@@ -10,19 +19,16 @@
         <form id="studentInputFields" method="POST" action="/createStudent" style="display: none;">
             <input type="text" name="first_name" placeholder="First Name">
             <input type="text" name="last_name" placeholder="Last Name">
-            <!-- Handle any extra behaviour using the onclick attribute please
-            -Louis -->
             <button id="confirmCreateStudent" onclick="">Confirm</button>
         </form>
-        <h2 id="classListTitle"></h2>
     </div>
 
-    <div id="classList"></div>
-    <div id="studentContainer">
-         
+    <div id="classList">
+        <div id="ClassName"></div>
+        <div id="studentContainer"></div>
     </div>
-
     
+
 
     <script src="static/js/classes.js"></script>
 </body>

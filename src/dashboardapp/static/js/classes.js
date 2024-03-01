@@ -11,15 +11,17 @@ function loadStudents(className) {
             const studentContainer = document.getElementById('studentContainer');
             studentContainer.innerHTML = ''; // Clear existing student boxes
 
-            data.forEach(student => {
-                const studentBox = document.createElement('div');
-                studentBox.className = 'student-box';
-                studentBox.textContent = `${student.first_name} ${student.last_name}`; // Adjust based on your data structure
-                studentContainer.appendChild(studentBox);
+            const studentBoxTemplate = document.getElementById('studentBoxTemplate');
+
+            data.forEach(student => {   
+                const studentBox = studentBoxTemplate.content.cloneNode(true);
+                studentBox.querySelector('.StudentName').textContent = `${student[0]} ${student[1]}`;
+                studentBox.querySelector('.StudentTardies').textContent = `Tardies: ${student[4]}`;
+                studentContainer.appendChild(studentBox); 
+                               
             });
         })
         .catch(error => console.error('Error:', error));
 }
 
-// Example usage
 loadStudents("cyber"); // Replace "Math101" with the class name you want to load

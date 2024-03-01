@@ -53,6 +53,11 @@ def notifications():
 
 ### Get/Post routes for various database and backend functionality ###
 
+@main.route("/database/getClasses")
+@login_required
+def get_classes():
+    return school_db.get_classes()
+
 @main.route("/database/getClass/<jsdata>")
 @login_required
 def get_javascript_data(jsdata=None):
