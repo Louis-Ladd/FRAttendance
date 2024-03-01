@@ -34,7 +34,7 @@ String.prototype.format = function () {
 
 function makeClassList(className) {
     document.getElementById("classListTitle").innerHTML = className
-    $.get('/getClass/{0}/20'.format(className), function(data){
+    $.get('/database/getClass/{0}/20'.format(className), function(data){
         makeClassListFromData(data);
     });
 }

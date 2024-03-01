@@ -26,19 +26,6 @@ def home():
 def dashboard():
     return render_template("dashboard.html")
 
-
-@main.route("/getClass/<jsdata>")
-@login_required
-def get_javascript_data(jsdata=None):
-    return school_db.get_class(jsdata)
-
-
-@main.route("/getClass/<jsdata>/<top>")
-@login_required
-def get_javascript_data_top(jsdata=None, top=None):
-    return school_db.get_class(jsdata, top=int(top))
-
-
 @main.route("/server")
 @login_required
 def server():
@@ -59,8 +46,24 @@ def camears():
 def classes():
     return render_template("classes.html")
 
+@main.route("/notifications")
+@login_required
+def notifications():
+    return render_template("notifications.html")
 
-@main.route("/createStudent", methods=["POST"])
+### Get/Post routes for various database and backend functionality ###
+
+@main.route("/database/getClass/<jsdata>")
+@login_required
+def get_javascript_data(jsdata=None):
+    return school_db.get_class(jsdata)
+
+@main.route("/database/getClass/<jsdata>/<top>")
+@login_required
+def get_javascript_data_top(jsdata=None, top=None):
+    return school_db.get_class(jsdata, top=int(top))
+
+@main.route("/database/createStudent", methods=["POST"])
 @login_required
 def create_student():
     # Learn how post forms work and that'll make this easier to implement.
@@ -79,9 +82,3 @@ def create_student():
         return redirect(url_for("main.classes"))
     else:
         return "Failed to create student", 500
-
-
-@main.route("/notifications")
-@login_required
-def notifications():
-    return render_template("notifications.html")

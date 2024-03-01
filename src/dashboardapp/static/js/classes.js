@@ -5,7 +5,7 @@ document.getElementById("createStudent").addEventListener("click", function() {
 
 
 function loadStudents(className) {
-    fetch(`/getClass/${className}`)
+    fetch(`/database/getClass/${className}`)
         .then(response => response.json())
         .then(data => {
             const studentContainer = document.getElementById('studentContainer');
