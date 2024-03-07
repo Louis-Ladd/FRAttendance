@@ -24,8 +24,6 @@ student_id
 Functions
 +++++++++
 
-.. note::        
-    Self is something that all the definitions use, this can be ignored.
 
 create_students 
 ^^^^^^^^^^^^^^^
