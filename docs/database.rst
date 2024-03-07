@@ -24,6 +24,9 @@ student_id
 Functions
 +++++++++
 
+.. note::        
+    Self is something that all the definitions use, this can be ignored.
+
 create_students 
 ^^^^^^^^^^^^^^^
     This is called to create a brand new student, this is the first step of the student data process.
@@ -34,8 +37,7 @@ create_students
         class_name - directs which table the data needs to be put under.
         first_name - string, adds a first name to the students data.
         last_name - string, adds a last name to the students data.
-.. note::        
-    Self is something that all the definitions use, this can be ignored.
+
 update_students
 ^^^^^^^^^^^^^^^
 
