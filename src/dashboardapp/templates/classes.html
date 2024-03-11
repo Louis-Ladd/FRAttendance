@@ -14,14 +14,21 @@
     </template>
 </head>
 <body>
+    {% if current_user.isAdmin %}
     <div class="EditButtonsColumn">
         <button id="createStudent">Create Student</button>
         <form id="studentInputFields" method="POST" action="/createStudent" style="display: none;">
             <input type="text" name="first_name" placeholder="First Name">
             <input type="text" name="last_name" placeholder="Last Name">
+            <input type="file" name="imageInput" id="imageInput" accept="image/*">
             <button id="confirmCreateStudent" onclick="">Confirm</button>
         </form>
+        <h2>Select a Class:</h2>
+        <select id="classDropdown">
+            <option value="" disabled selected>Select a class</option>
+        </select>
     </div>
+    {% endif %}
 
     <div id="classList">
         <div id="ClassName"></div>
