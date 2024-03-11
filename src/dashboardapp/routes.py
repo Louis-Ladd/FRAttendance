@@ -111,4 +111,4 @@ def user_remove_class():
 @main.route("/users/getClasses", methods=["GET"])
 @login_required
 def current_user_get_classes():
-    return current_user.get_classes()
+    return jsonify(current_user.get_classes())
