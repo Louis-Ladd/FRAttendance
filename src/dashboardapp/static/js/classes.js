@@ -1,35 +1,48 @@
 var createStudentButton = document.getElementById("createStudent");
+var confirmStudentButton = document.getElementById("confirmCreateStudent");
 var inputFirstname = document.getElementById("first_name");
 var inputLastname = document.getElementById("last_name");
+var classDropdown = document.getElementById("classDropdown");
+
 if (createStudentButton) {
     createStudentButton.addEventListener("click", function() {
-        // Show the input fields
         var studentInputFields = document.getElementById("studentInputFields");
         if (studentInputFields) {
             studentInputFields.style.display = "block";
         }
+        console.log('Create student button clicked');
+    });
 
-        // Send a POST request to the createStudent endpoint
+    confirmStudentButton.addEventListener("click", function() {
+        // Get the selected class from the dropdown menu
+        var selectedClass = classDropdown.options[classDropdown.selectedIndex].value;
+    
         fetch('/database/createStudent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                first_name: inputFirstname.value, // Replace with the actual first name input value
-                last_name: inputLastname.value // Replace with the actual last name input value
+                first_name: inputFirstname.value,
+                last_name: inputLastname.value,
+                selected_class: selectedClass // Include the selected class in the request body
             })
         })
         .then(response => {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error('Failed to create student');
+                return response.text(); // Return the text response
             }
         })
         .then(data => {
-            // Handle the response data as needed
-            console.log('Student created:', data);
+            if (typeof data === 'string') {
+                console.log('Non-JSON response:', data);
+                // Handle the non-JSON response here
+            } else {
+                // Handle the JSON response as needed
+                console.log('Student created:', data);
+            }
         })
         .catch(error => {
             // Handle any errors
@@ -40,9 +53,27 @@ if (createStudentButton) {
 
 
 function loadStudents(className) {
+    console.log('Loading students for class:', className);
+
+    // Check if the className is the placeholder "select a class"
+    if (className === "select_a_class") {
+        console.log('Class name is the placeholder "select a class". Finding the first populated class instead.');
+        // If the className is the placeholder, load the first populated class instead
+        var classDropdown = document.getElementById("classDropdown");
+        for (var i = 0; i < classDropdown.options.length; i++) {
+            if (classDropdown.options[i].value !== "select_a_class") {
+                className = classDropdown.options[i].value;
+                console.log('Found populated class:', className);
+                break;
+            }
+        }
+    }
+
+    console.log('Fetching data for class:', className);
     fetch(`/database/getClass/${className}`)
         .then(response => response.json())
         .then(data => {
+            console.log('Received data for class:', className, data);
             const studentContainer = document.getElementById('studentContainer');
             studentContainer.innerHTML = ''; // Clear existing student boxes
 
@@ -53,10 +84,9 @@ function loadStudents(className) {
                 studentBox.querySelector('.StudentName').textContent = `${student[0]} ${student[1]}`;
                 studentBox.querySelector('.StudentTardies').textContent = `Tardies: ${student[4]}`;
                 studentContainer.appendChild(studentBox); 
-                               
             });
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error fetching data for class:', className, error));
 }
 
 document.addEventListener("DOMContentLoaded", function() {

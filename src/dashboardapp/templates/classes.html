@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <iframe name="dummy" id="dummy" style="display: none" height="30px" scrolling="no"></iframe>
     <link rel="stylesheet" href="static/css/classes.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
 
@@ -17,9 +18,9 @@
     {% if current_user.isAdmin %}
     <div class="EditButtonsColumn">
         <button id="createStudent">Create Student</button>
-        <form id="studentInputFields" method="POST" action="/createStudent" style="display: none;">
-            <input type="text" name="first_name" placeholder="First Name">
-            <input type="text" name="last_name" placeholder="Last Name">
+        <form id="studentInputFields" method="POST" action="/createStudent" style="display: none;" target="dummy">
+            <input type="text" name="first_name" placeholder="First Name" id="first_name">
+            <input type="text" name="last_name" placeholder="Last Name" id = "last_name">
             <input type="file" name="imageInput" id="imageInput" accept="image/*">
             <button id="confirmCreateStudent" onclick="">Confirm</button>
         </form>
