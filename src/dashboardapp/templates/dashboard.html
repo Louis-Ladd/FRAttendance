@@ -38,9 +38,10 @@
 						</div>
 						{% if current_user.isAdmin %}
 						<div class="trends overview-section inactive">
+							<iframe name="dummy" id="dummy" style="display: block; border: none;" height="30px" scrolling="no"></iframe>
 							<div>
 							<h1>Add class to user</h1>
-								<form class="admin-tools" method="POST" action="/user/addClass">
+								<form class="admin-tools" method="POST" action="/users/addClass" target="dummy">
 									<input class="input" type="text" name="username" placeholder="Username" autofocus="" required>
 									<input class="input" type="text" name="class_name" placeholder="Class Name" autofocus="" required>
 									<button class="filled-button" type="submit">Add</button>
@@ -48,7 +49,7 @@
 							</div>
 							<div>
 								<h1>Remove class from user</h1>
-								<form class="admin-tools" method="POST" action="/user/removeClass">
+								<form class="admin-tools" method="POST" action="/users/removeClass" target="dummy">
 									<input class="input" type="text" name="username" placeholder="Username" autofocus="" required>
 									<input class="input" type="text" name="class_name" placeholder="Class Name" autofocus="" required>
 									<button class="filled-button" type="submit">Remove</button>

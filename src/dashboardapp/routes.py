@@ -96,7 +96,7 @@ def user_add_class():
     username = request.form.get("username")
     class_name = request.form.get("class_name")
     current_user.add_class_to_user(class_name, username)
-    return redirect(url_for("main.classes"))
+    return "OK", 200
 
 @main.route ("/users/removeClass", methods=["POST"])
 @login_required
@@ -106,9 +106,9 @@ def user_remove_class():
     username = request.form.get("username")
     class_name = request.form.get("class_name")
     current_user.remove_class_from_user(class_name, username)
-    return redirect(url_for("main.classes"))
+    return "OK", 200
 
 @main.route("/users/getClasses", methods=["GET"])
 @login_required
 def current_user_get_classes():
-    return current_user.get_classes()
+    return jsonify(current_user.get_classes())
