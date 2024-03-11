@@ -183,3 +183,10 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
+.button-text-only{
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #8C52FF;
+}

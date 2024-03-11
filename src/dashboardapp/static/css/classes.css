@@ -2,6 +2,7 @@
     float: left;
     width: 10%;
     border-radius: 25px; /* Added 'px' unit */
+    padding-right: 20px;
 }
 
 .box {
@@ -25,4 +26,12 @@
 
 .StudentName{
     font-weight: bold;
+}
+
+.createStudent{
+    border-radius: 10px;
+}
+
+.classDropdown{
+    border-radius: 10px;
 }
