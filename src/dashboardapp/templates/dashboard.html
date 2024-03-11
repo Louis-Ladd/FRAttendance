@@ -25,7 +25,9 @@
 					<div class="overview-filters" id="filters">
 						<button onclick="tabSwitch('0')" class="on-time filled-button" id="0">On Time</button>
 						<button onclick="tabSwitch('1')" class="late unfilled-button" id="1">Late</button>
-						<button onclick="tabSwitch('2')" class="trends unfilled-button" id="2">Trends</button>
+						{% if current_user.isAdmin %}
+						<button onclick="tabSwitch('2')" class="trends unfilled-button" id="2">Admin Tools</button>
+						{% endif %}
 					</div>
 					<div id="overviews-parent">
 						<div class="on-time overview-section active">
@@ -34,9 +36,26 @@
 						<div class="late overview-section inactive">
 							<p>This really worked?</p>
 						</div>
+						{% if current_user.isAdmin %}
 						<div class="trends overview-section inactive">
-							<img src="static/media/goose.jpg" width="100%" height="200px">
+							<div>
+							<h1>Add class to user</h1>
+								<form class="admin-tools" method="POST" action="/user/addClass">
+									<input class="input" type="text" name="username" placeholder="Username" autofocus="" required>
+									<input class="input" type="text" name="class_name" placeholder="Class Name" autofocus="" required>
+									<button class="filled-button" type="submit">Add</button>
+								</form>
+							</div>
+							<div>
+								<h1>Remove class from user</h1>
+								<form class="admin-tools" method="POST" action="/user/removeClass">
+									<input class="input" type="text" name="username" placeholder="Username" autofocus="" required>
+									<input class="input" type="text" name="class_name" placeholder="Class Name" autofocus="" required>
+									<button class="filled-button" type="submit">Remove</button>
+								</form>
+							</div>
 						</div>
+						{% endif %}
 					</div>
 				</div>
 				<!-- End of Quickview Modal-->

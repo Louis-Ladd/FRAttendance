@@ -107,3 +107,8 @@ def user_remove_class():
     class_name = request.form.get("class_name")
     current_user.remove_class_from_user(class_name, username)
     return redirect(url_for("main.classes"))
+
+@main.route("/users/getClasses", methods=["GET"])
+@login_required
+def current_user_get_classes():
+    return current_user.get_classes()
