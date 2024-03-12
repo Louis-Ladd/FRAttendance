@@ -24,6 +24,8 @@ class User(UserMixin, db.Model):
         user = User.query.filter_by(username=username).first()
         if not user:
             return "User not found", 404
+        if user.has_class(class_name) or class_name not in school_db.get_classes():
+            return "Class does not exist", 404
         
         user.remove_class(class_name)
         return "OK", 200
