@@ -95,8 +95,8 @@ def user_add_class():
         return "HTTP 401 Error: You are unauthorized to do that", 401
     username = request.form.get("username")
     class_name = request.form.get("class_name")
-    current_user.add_class_to_user(class_name, username)
-    return "OK", 200
+    result = current_user.add_class_to_user(class_name, username)
+    return result
 
 @main.route ("/users/removeClass", methods=["POST"])
 @login_required
@@ -105,8 +105,8 @@ def user_remove_class():
         return "HTTP 401 Error: You are unauthorized to do that", 401
     username = request.form.get("username")
     class_name = request.form.get("class_name")
-    current_user.remove_class_from_user(class_name, username)
-    return "OK", 200
+    result = current_user.remove_class_from_user(class_name, username)
+    return result 
 
 @main.route("/users/getClasses", methods=["GET"])
 @login_required
