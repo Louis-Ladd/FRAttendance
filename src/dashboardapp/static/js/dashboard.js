@@ -29,6 +29,18 @@ function tabSwitch(id){
 }
 
 function makeClassList(className) {
+    if (className == "") {
+        const classList = document.getElementById("classList");
+        classList.innerHTML = "";
+        let placeholderElement = document.createElement("ul");
+        let item = document.createElement("li");
+        let text = document.createElement("h3");
+        text.innerHTML = "You currently don't have any classes to view :(";
+        item.appendChild(text);
+        placeholderElement.appendChild(item);
+        classList.appendChild(placeholderElement);
+        return
+    }
     $.get(`/database/getClass/${className}/20`, function(data){
         makeClassListFromData(data);
     });

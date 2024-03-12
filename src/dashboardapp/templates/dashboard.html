@@ -25,8 +25,9 @@
 					<div class="overview-filters" id="filters">
 						<button onclick="tabSwitch('0')" class="on-time filled-button" id="0">On Time</button>
 						<button onclick="tabSwitch('1')" class="late unfilled-button" id="1">Late</button>
+						<button onclick="tabSwitch('2')" class="trends unfilled-button" id="2">Trends</button>
 						{% if current_user.isAdmin %}
-						<button onclick="tabSwitch('2')" class="trends unfilled-button" id="2">Admin Tools</button>
+						<button onclick="tabSwitch('3')" class="admin-tools unfilled-button" id="3">Admin Tools</button>
 						{% endif %}
 					</div>
 					<div id="overviews-parent">
@@ -36,12 +37,15 @@
 						<div class="late overview-section inactive">
 							<p>This really worked?</p>
 						</div>
-						{% if current_user.isAdmin %}
 						<div class="trends overview-section inactive">
+							<p>Some trendy data</p>
+						</div>
+						{% if current_user.isAdmin %}
+						<div class="admin-tools overview-section inactive">
 							<iframe name="dummy" id="dummy" style="display: block; border: none;" height="30px" scrolling="no"></iframe>
 							<div>
 							<h1>Add class to user</h1>
-								<form class="admin-tools" method="POST" action="/users/addClass" target="dummy">
+								<form class="admin-tools-form" method="POST" action="/users/addClass" target="dummy">
 									<input class="input" type="text" name="username" placeholder="Username" autofocus="" required>
 									<input class="input" type="text" name="class_name" placeholder="Class Name" autofocus="" required>
 									<button class="filled-button" type="submit">Add</button>

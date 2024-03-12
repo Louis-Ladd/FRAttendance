@@ -200,8 +200,12 @@ select:hover {
 }
 
 .overview-filters {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    justify-content: space-between;
+}
+
+.overview-filters button {
+    width: 100%;
 }
 
 .button-text-only{
