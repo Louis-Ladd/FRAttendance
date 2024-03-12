@@ -1,3 +1,6 @@
+const classListSelect = document.getElementById("classListDropdown");
+const classListSortby = document.getElementById("classListSortby");
+
 function tabSwitch(id){
     const filters = document.getElementById("filters");
 
@@ -25,28 +28,41 @@ function tabSwitch(id){
     //TODO: Validate this code please, this feels wrong... it is js tho - Louis
 }
 
-String.prototype.format = function () {
-    var args = arguments;
-    return this.replace(/{([0-9]+)}/g, function (match, index) {
-        return typeof args[index] == 'undefined' ? match : args[index];
-    });
-};
-
 function makeClassList(className) {
-    document.getElementById("classListTitle").innerHTML = className
-    $.get('/database/getClass/{0}/20'.format(className), function(data){
+    $.get(`/database/getClass/${className}/20`, function(data){
         makeClassListFromData(data);
     });
 }
 
 // Yippee, building element from scratch - Louis
 function makeClassListFromData(data) {
-    var studentElement = document.createElement("ul");
+    document.getElementById("classList").innerHTML = "";
+    let studentElement = document.createElement("ul");
+
+    switch (document.getElementById("classListSortby").value) {
+        case "0"://sort by tardies Acc
+            data = data.sort(function (a, b) { return a[4] - b[4]; });
+            break;
+        case "1"://sort by tardies Dec
+            data = data.sort(function (a, b) { return b[4] - a[4]; });
+            break;    
+        case "2"://sort by last name A to Z
+            data = data.sort(function (a,b) {
+                return a[1].localeCompare(b[1]);
+            });
+            break;
+        case "3"://sort by last name Z to A
+            data = data.sort (function (a,b) {
+                return b[1].localeCompare(a[1]);
+            })
+            break;
+    }
+    
     for (var i = 0; i < data.length; i++){
-        var item = document.createElement("li");
-        var textDiv = document.createElement("div");
-        var image = document.createElement("img")
-        var name = document.createElement("h3");
+        let item = document.createElement("li");
+        let textDiv = document.createElement("div");
+        let image = document.createElement("img")
+        let name = document.createElement("h3");
         name.textContent = data[i][0] + " ";
         name.textContent += data[i][1];
         image.src = "static/media/avatar.jpg"
@@ -62,5 +78,18 @@ function makeClassListFromData(data) {
     }
     document.getElementById("classList").appendChild(studentElement)
 }
-//document.getElementById("classList").appendChild(makeClassList())
-makeClassList("vr")
+
+$.get("/users/getClasses", function(data){
+    for (var i = 0; i < data.length; i++){
+        classListSelect.innerHTML += "<option value=" + data[i] + ">" + data[i] + "</option>";
+    }
+    makeClassList(classListSelect.value);
+})
+
+
+classListSelect.addEventListener("change", function() {
+    makeClassList(classListSelect.value);
+})
+classListSortby.addEventListener("change", function() {
+    makeClassList(classListSelect.value);
+})
