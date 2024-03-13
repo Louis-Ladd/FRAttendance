@@ -11,6 +11,15 @@ ClassDatabase
 Parameters
 ++++++++++
 
+    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
+    |Name        |Type      |Description                                                                                                      |
+    +============+==========+=================================================================================================================+
+    |class_name  |String    | This variable is the directory for the data. Its the name of the table that all the students' data is formatted.|
+    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
+    |first_name  |String    | Adds the students name to the data set. it can be called anytime to bring up the students data.                 |
+    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
+    |Last Name   | String   | Gives the database the students last name, applying it to the student ID number.                                |
+    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
 class_name
 ^^^^^^^^^^
     This vairable is attached to the data set that holds the student data.
@@ -27,14 +36,21 @@ Functions
 
 create_students 
 ^^^^^^^^^^^^^^^
-    This is called to create a brand new student, this is the first step of the student data process.
+    The create_student method creates a new student record in the database by inserting the provided first name and last name into the "students" table. It then commits the changes to the database and returns the ID of the newly created student record, or None if an error occurs. If an exception is caught during the execution, it logs the error and returns None.
     
     
     Using the parameters below you can form the students information.
         create_student(first_name: str, last_name: str)
-        class_name - directs which table the data needs to be put under.
-        first_name - string, adds a first name to the students data.
-        last_name - string, adds a last name to the students data.
+        +------------+----------+-----------------------------------------------------------------------------------------------------------------+
+        |Name        |Type      |Description                                                                                                      |
+        +============+==========+=================================================================================================================+
+        |class_name  |String    | This variable is the directory for the data. Its the name of the table that all the students' data is formatted.|
+        +------------+----------+---------------------------+
+        |first_name  |String    | 
+        +    first_name - string, adds a first name to the students data.
+        |Last Name   | String   | Gives the database the students last name, applying it to the student ID number.|
+        +    last_name - string, adds a last name to the students data.
+
 
 update_students
 ^^^^^^^^^^^^^^^
