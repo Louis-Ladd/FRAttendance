@@ -1,35 +1,31 @@
 Database
 ========
 
+ClassDatabase
+-------------
 
 Classes and their Methods
--------------------------
-
-ClassDatabase
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Parameters
 ++++++++++
 
-    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
-    |Name        |Type      |Description                                                                                                      |
-    +============+==========+=================================================================================================================+
-    |class_name  |String    | This variable is the directory for the data. Its the name of the table that all the students' data is formatted.|
-    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
-    |first_name  |String    | Adds the students name to the data set. it can be called anytime to bring up the students data.                 |
-    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
-    |Last Name   | String   | Gives the database the students last name, applying it to the student ID number.                                |
-    +------------+----------+-----------------------------------------------------------------------------------------------------------------+
-class_name
-^^^^^^^^^^
-    This vairable is attached to the data set that holds the student data.
-    This variable must be a string, it is the name of the table that the student data will be stored under.
-student_id
-^^^^^^^^^^
-    holds the student identitiy numbers.
-    
-    this variable is linked to an integer and can be any real-whole number that has a value higher than 0.
-
+    +------------+----------+-------------------------------------------------------------------------------------------------------------------------+
+    |Name        |Type      |Description                                                                                                              |
+    +============+==========+=========================================================================================================================+
+    |class_name  | String   | This variable is the directory for the student data sets. Its the name of the table that all the students' data is kept.|
+    +------------+----------+-------------------------------------------------------------------------------------------------------------------------+
+    |student_id  | Integer  | Gives the database the students last name, applying it to the student ID number.                                        |
+    +------------+----------+-------------------------------------------------------------------------------------------------------------------------+
+    |first_name  | String   | Gives the data base the students first name, applying/overriding the students data set.                                 |
+    |            |          |                                                                                                                         |
+    |            |          | it can be called anytime to bring up the students data set.                                                             |
+    +------------+----------+-------------------------------------------------------------------------------------------------------------------------+
+    |last_name   | String   | This parameter controls the student data sets, creating/overriding the students data set.                               |
+    |            |          |                                                                                                                         |
+    |            |          | it can be called anytime to bring up the students data set.                                                             |
+    +------------+----------+-------------------------------------------------------------------------------------------------------------------------+
+    |photo_path  | String   | This controls the path directory for the students photo.|
 Functions
 +++++++++
 
