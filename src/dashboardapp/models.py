@@ -51,6 +51,14 @@ class User(UserMixin, db.Model):
         
         user.add_class(class_name, username)
         return "OK", 200
+    
+    def delete_user(self, username : str):
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            return "User not found", 404
+        db.session.delete(user)
+        db.session.commit()
+        return "OK", 200
 
     def has_class(self, class_name : str):
         return class_name in self.classes

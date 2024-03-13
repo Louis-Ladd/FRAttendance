@@ -59,13 +59,19 @@
 						<i class="navbar-button fa fa-bell"></i>
 						<span>Notifications</span>
 					</button>
+					{% if current_user.isAdmin %}
+					<button onclick="pageSwitch('accounts', '5', false)" id="5">
+						<i class="navbar-button fa fa-user-tie""></i>
+						<span>Account Managment</span>
+					</button>
+					{% endif %}
 				</div>
 				<div class="navbar-buttons">
-					<button onclick="pageSwitch('account', '5', false)" id="5">
+					<button onclick="pageSwitch('account', '6', false)" id="6">
 						<i class="navbar-button fa fa-user inactive"></i>
 						<span>My Account</span>
 					</button>
-					<button onclick="pageSwitch('settings', '6', false)" id="6">
+					<button onclick="pageSwitch('settings', '7', false)" id="7">
 						<i class="navbar-button fa fa-gear inactive"></i>
 						<span>Settings</span>
 					</button>

@@ -5,8 +5,12 @@ from flask import request, jsonify
 
 from .updater import server_info
 from . import school_db
+from .models import User
 
 main = Blueprint("main", __name__)
+
+MESSAGE_404= "HTTP 404 Error: The page you are looking for does not exist"
+MESSAGE_401= "HTTP 401 Error: You are not authorized to make that request"
 
 
 @main.route("/")
@@ -29,9 +33,9 @@ def dashboard():
 @main.route("/server")
 @login_required
 def server():
-    if current_user.isAdmin:
-        return render_template("server.html", server_info=server_info)
-    return "HTTP 401 Erorr: You are unauthorized to view this page", 401
+    if not current_user.isAdmin:
+        return MESSAGE_401, 401
+    return render_template("server.html", server_info=server_info)
 
 
 @main.route("/cameras")
@@ -50,6 +54,13 @@ def classes():
 @login_required
 def notifications():
     return render_template("notifications.html")
+
+@main.route("/accounts")
+@login_required
+def accounts():
+    if not current_user.isAdmin:
+        return MESSAGE_401, 401
+    return render_template("accounts.html")
 
 ### Get/Post routes for various database and backend functionality ###
 
@@ -75,7 +86,7 @@ def create_student():
     # You can copy how it was implemented in ./templates/login.html ln 23-37 and ./auth.py ln 17-30
     # rewrite and implement it into classes after learning how it works. - Louis
     if not current_user.isAdmin:
-        return "HTTP 401 Error: You are unauthorized to do that", 401
+        return MESSAGE_401, 401
     first_name = request.form.get("first_name")  # Changed from "first_name" to "name"
     last_name = request.form.get("last_name")
     print(f"'Made' the student {first_name} {last_name}")
@@ -87,12 +98,15 @@ def create_student():
         return redirect(url_for("main.classes"))
     else:
         return "Failed to create student", 500
-    
+
+# USERS ROUTES: For accessing or mutating the data of OTHER users
+# Only administrators should be able to do this.
+
 @main.route ("/users/addClass", methods=["POST"])
 @login_required
 def user_add_class():
     if not current_user.isAdmin:
-        return "HTTP 401 Error: You are unauthorized to do that", 401
+        return MESSAGE_401, 401
     username = request.form.get("username")
     class_name = request.form.get("class_name")
     result = current_user.add_class_to_user(class_name, username)
@@ -102,13 +116,40 @@ def user_add_class():
 @login_required
 def user_remove_class():
     if not current_user.isAdmin:
-        return "HTTP 401 Error: You are unauthorized to do that", 401
+        return MESSAGE_401, 401
     username = request.form.get("username")
     class_name = request.form.get("class_name")
     result = current_user.remove_class_from_user(class_name, username)
     return result 
 
-@main.route("/users/getClasses", methods=["GET"])
+@main.route ("/users/deleteUser", methods=["POST"])
+@login_required
+def user_delete():
+    if not current_user.isAdmin:
+        return MESSAGE_401, 401
+    username = request.get_json()["username"] 
+    result = current_user.delete_user(username)
+    return result
+
+@main.route ("/users/getUsers", methods=["GET"])
+@login_required
+def user_get_classes():
+    # TODO: DO NOT SEND PASSWORDS HASHED, EVEN FOR ADMINISTRATORS, THEY SHOULD NOT BE ABLE TO ACCESS PASSWORDS. - Louis
+    if not current_user.isAdmin:
+        return MESSAGE_401, 401
+    users = User.query.all()
+    users_dict = {"username": [], "name": [], "classes": [], "isAdmin": []}
+    for user in users:
+        users_dict["username"].append(user.username)
+        users_dict["name"].append(user.name)
+        users_dict["classes"].append(user.get_classes())
+        users_dict["isAdmin"].append(user.isAdmin)
+    return users_dict
+
+# USER ROUTE: For accessing or mutating the data of the current user
+# All users should be able to do this BUT strict checks should ensure that data ownership is respected.
+
+@main.route("/user/getClasses", methods=["GET"])
 @login_required
 def current_user_get_classes():
-    return jsonify(current_user.get_classes())
+    return current_user.get_classes()

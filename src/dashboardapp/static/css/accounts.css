@@ -1,0 +1,87 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body{
+    background-color: #939393;
+}
+
+.userList ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.userList ul hr{
+}
+
+.userList ul li {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.userList ul li i{
+    background-color: #8C52FF;
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 10px;
+    color: white; 
+}
+
+.userList ul li i span{
+
+}
+
+.userList ul li h3{
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+.userList ul li p{
+    margin: 0px;
+}
+
+.userList ul li div{
+}
+
+.userList ul li img {
+}
+
+.filled-button{
+    font-size: large;
+    padding: 20px;
+    margin: 20px;
+    background-color:#ffffff;
+    border: solid white; /* keeps height and width congruent with unfilled buttons */
+    border-radius: 10px;
+    color: #8C52FF;
+    transition: 0.1s;
+}
+
+.filled-button:hover {
+    filter: drop-shadow(10px 5px 7px #00000049);
+}
+
+.filled-button:active {
+    color: black;
+    background-color: white;
+}
+
+.unfilled-button {
+    font-size: large;
+    padding: 20px;
+    margin: 20px;
+    color: white;
+    border: solid white;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: 0.1s;
+}
+
+.unfilled-button:hover {
+    filter: drop-shadow(10px 5px 7px #00000049);
+}
+
+.unfilled-button:active {
+    color: black;
+    background-color: white;
+}

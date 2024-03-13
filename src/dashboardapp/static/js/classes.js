@@ -91,7 +91,7 @@ function loadStudents(className) {
 
 document.addEventListener("DOMContentLoaded", function() {
     // Fetch classes using user.getClasses API call in Python
-    fetch('/users/getClasses')
+    fetch('/user/getClasses')
         .then(response => response.json())
         .then(data => {
             const classDropdown = document.getElementById('classDropdown');

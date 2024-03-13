@@ -91,7 +91,7 @@ function makeClassListFromData(data) {
     document.getElementById("classList").appendChild(studentElement)
 }
 
-$.get("/users/getClasses", function(data){
+$.get("/user/getClasses", function(data){
     for (var i = 0; i < data.length; i++){
         classListSelect.innerHTML += "<option value=" + data[i] + ">" + data[i] + "</option>";
     }
