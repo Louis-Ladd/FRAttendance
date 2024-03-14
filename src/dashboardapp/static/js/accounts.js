@@ -1,6 +1,24 @@
+/*
+ * File: accounts.js
+ * Purpose: Handle creating the user list and handling user input from accounts.html
+ * Project: FRAttendance
+ * File Created: Thursday, 14th March 2024 12:25:28 pm
+ * Author: Louis Harshman (lewisharshman1@gmail.com)
+ * -----
+ * Last Modified: Thursday, 14th March 2024 3:41:21 pm
+ * Modified By: Louis Harshman (lewisharshman1@gmail.com)
+ * -----
+ * Copyright 2019 - 2024 
+ */
+
 function makeUserList() {
     var userList = document.getElementById("accountsContainer");
     userList.innerHTML = "";
+    let currentUser = "";
+    getCurrentUser().then (function(username) {
+        currentUser = username
+    });
+
     fetch("/users/getUsers")
         .then(function(response) {
             return response.json();
@@ -36,10 +54,26 @@ function makeUserList() {
                 userInfoDiv.appendChild(classes);
                 userInfoDiv.appendChild(username);
                 userElement.appendChild(userInfoDiv);
-                userElement.appendChild(makeDeleteUserButton(data["username"][i]));
+                if (data["username"][i] !== currentUser) {
+                    userElement.appendChild(makeDeleteUserButton(data["username"][i]));
+                }
                 userListElement.appendChild(userElement);
             }
             userList.appendChild(userListElement);
+        });
+}
+
+function getCurrentUser() {
+    return fetch("/user/getUsername")
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            return data["username"];
+        })
+        .catch(function(error) {
+            console.error("Could not fetch username",error);
+            return "";
         });
 }
 
@@ -52,7 +86,7 @@ function deleteUser(username) {
         body : JSON.stringify({
             username: username
         })
-    })
+    });
     makeUserList();
 }
 

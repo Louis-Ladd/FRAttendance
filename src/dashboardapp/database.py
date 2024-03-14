@@ -1,3 +1,16 @@
+'''
+File: database.py
+Purpose: Abstract the student database into a class and handle sql queries
+Project: FRAttendance
+File Created: Thursday, 14th March 2024 12:25:28 pm
+Author: Louis Harshman (lewisharshman1@gmail.com), Tyler Mo ()
+-----
+Last Modified: Thursday, 14th March 2024 3:45:03 pm
+Modified By: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Copyright 2019 - 2024
+'''
+
 from sqlite3 import connect, Error
 import traceback
 

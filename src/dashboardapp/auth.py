@@ -1,3 +1,16 @@
+'''
+File: auth.py
+Purpose: Handle authentication routes
+Project: FRAttendance
+File Created: Thursday, 14th March 2024 12:25:28 pm
+Author: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Last Modified: Thursday, 14th March 2024 3:44:38 pm
+Modified By: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Copyright 2019 - 2024
+'''
+
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required

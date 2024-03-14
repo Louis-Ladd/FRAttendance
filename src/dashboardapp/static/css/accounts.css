@@ -17,6 +17,11 @@ body{
     border-radius: 20px;
     padding: 20px;
     margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.userList ul li button {
+    float: right;
 }
 
 .userList ul li i{
@@ -59,6 +64,7 @@ body{
 
 .filled-button:hover {
     filter: drop-shadow(10px 5px 7px #00000049);
+    cursor: pointer;
 }
 
 .filled-button:active {

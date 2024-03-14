@@ -1,3 +1,17 @@
+'''
+File: routes.py
+Purpose: Handle main routes
+Note: All of these routes require login for access
+Project: FRAttendance
+File Created: Thursday, 14th March 2024 12:25:28 pm
+Author: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Last Modified: Thursday, 14th March 2024 3:47:31 pm
+Modified By: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Copyright 2019 - 2024
+'''
+
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
@@ -127,6 +141,7 @@ def user_remove_class():
 def user_delete():
     if not current_user.isAdmin:
         return MESSAGE_401, 401
+    return "NO", 200
     username = request.get_json()["username"] 
     result = current_user.delete_user(username)
     return result
@@ -153,3 +168,8 @@ def user_get_classes():
 @login_required
 def current_user_get_classes():
     return current_user.get_classes()
+
+@main.route("/user/getUsername", methods=["GET"])
+@login_required
+def current_user_get_user():
+    return jsonify({"username" : current_user.username, "name" : current_user.name}) 

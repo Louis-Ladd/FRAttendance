@@ -1,3 +1,16 @@
+'''
+File: updater.py
+Purpose: Define the updater daemon thread that performs blocking tasks that updates information needed by the server
+Project: FRAttendance
+File Created: Thursday, 14th March 2024 12:25:28 pm
+Author: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Last Modified: Thursday, 14th March 2024 3:50:22 pm
+Modified By: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Copyright 2019 - 2024
+'''
+
 import socket
 import psutil
 import threading

@@ -1,3 +1,16 @@
+/*
+ * File: dashboard.js
+ * Purpose: Handle switching tabs and populating the classList in dashboard.html
+ * Project: FRAttendance
+ * File Created: Thursday, 14th March 2024 12:25:28 pm
+ * Author: Louis Harshman (lewisharshman1@gmail.com)
+ * -----
+ * Last Modified: Thursday, 14th March 2024 3:40:40 pm
+ * Modified By: Louis Harshman (lewisharshman1@gmail.com)
+ * -----
+ * Copyright 2019 - 2024 
+ */
+
 const classListSelect = document.getElementById("classListDropdown");
 const classListSortby = document.getElementById("classListSortby");
 

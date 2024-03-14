@@ -1,3 +1,16 @@
+/*
+ * File: server.js
+ * Purpose: Handle instatiation of chart.js and socket.io to handle server statistics in server.html
+ * Project: FRAttendance
+ * File Created: Thursday, 14th March 2024 12:25:28 pm
+ * Author: Louis Harshman (lewisharshman1@gmail.com)
+ * -----
+ * Last Modified: Thursday, 14th March 2024 3:41:56 pm
+ * Modified By: Louis Harshman (lewisharshman1@gmail.com)
+ * -----
+ * Copyright 2019 - 2024 
+ */
+
 var socket = io();
 var cpu_usage_history = [];
 var lastGraphUpdate = Date.now()

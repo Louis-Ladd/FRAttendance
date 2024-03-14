@@ -1,3 +1,16 @@
+'''
+File: models.py
+Purpose: Handle the authentication database
+Project: FRAttendance
+File Created: Thursday, 14th March 2024 12:25:28 pm
+Author: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Last Modified: Thursday, 14th March 2024 3:47:03 pm
+Modified By: Louis Harshman (lewisharshman1@gmail.com)
+-----
+Copyright 2019 - 2024
+'''
+
 from flask_login import UserMixin
 from . import db
 from . import school_db
