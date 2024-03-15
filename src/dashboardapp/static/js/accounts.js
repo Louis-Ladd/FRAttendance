@@ -78,6 +78,8 @@ function getCurrentUser() {
 }
 
 function deleteUser(username) {
+    alert(`Unable to delete user "${username}" \nThis feature is currently disabled`);
+    return // CURRENTLY NOT ENALBED 
     fetch("/users/deleteUser", {
         method: "POST",
         headers : {
